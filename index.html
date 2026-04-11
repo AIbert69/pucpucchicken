@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PucPucChicken — AI Poultry Grading System</title>
+    <meta name="description" content="A ceiling-mounted AI camera system that grades every bird in 185 milliseconds. Six cameras, edge AI, PLC-integrated routing.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#F5EFE0',
+            'cream-dark': '#EDE6D4',
+            'cream-light': '#FAF8F2',
+            ink: '#2A2A25',
+            slate: '#4A4A42',
+            stone: '#8A8778',
+            green: { DEFAULT: '#3D5A3E', light: '#4A6E4B', pale: '#E8F0E4', dark: '#2F4530' },
+            rule: '#D8D1C2',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+    </script>
+    <style>
+        body { font-family: 'DM Sans', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+
+        /* Film grain */
+        body::before {
+            content: ''; position: fixed; inset: -50%; width: 200%; height: 200%;
+            z-index: 9000; pointer-events: none; opacity: 0.02;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 180px;
+        }
+
+        /* Scroll reveal */
+        [data-r] { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+        [data-r].v { opacity: 1; transform: translateY(0); }
+        [data-r][data-d="1"] { transition-delay: 0.1s; }
+        [data-r][data-d="2"] { transition-delay: 0.2s; }
+        [data-r][data-d="3"] { transition-delay: 0.3s; }
+        [data-r][data-d="4"] { transition-delay: 0.4s; }
+
+        /* Hero entrance */
+        .hero-text { opacity: 0; animation: fadeUp 0.9s ease 0.15s both; }
+        .hero-img  { opacity: 0; animation: fadeUp 0.9s ease 0.4s both; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+
+        /* Big background text */
+        .bg-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 12vw; font-weight: 900; line-height: 0.85;
+            color: transparent; -webkit-text-stroke: 1.5px rgba(42,42,37,0.06);
+            white-space: nowrap; pointer-events: none; user-select: none;
+        }
+
+        /* Stat card hover */
+        .stat-card { transition: border-color 0.25s, box-shadow 0.25s; }
+        .stat-card:hover { border-color: rgba(61,90,62,0.4); box-shadow: 0 8px 24px rgba(42,42,37,0.06); }
+
+        /* Service card */
+        .svc-card { transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+        .svc-card:hover { transform: translateY(-6px); }
+        .svc-card:hover img { transform: scale(1.06); }
+        .svc-card img { transition: transform 0.6s ease; }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            [data-r] { opacity: 1; transform: none; }
+            .hero-text, .hero-img { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body class="bg-cream text-ink overflow-x-hidden">
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<header class="fixed top-0 left-0 w-full z-50 pt-5 px-5 md:px-10" id="nav-wrap">
+    <nav class="max-w-[1320px] mx-auto flex items-center justify-between">
+        <a href="#" class="flex items-center gap-1">
+            <span class="font-serif text-xl font-bold tracking-tight text-ink">Puc</span>
+            <span class="font-serif text-xl font-bold tracking-tight text-ink relative">
+                P
+                <svg class="absolute -top-1.5 left-0.5 w-3 h-3 fill-green" viewBox="0 0 24 24"><path d="M21.4,3.9C21.4,3.9,15.6,2,9.3,8.3c-4.9,4.9-6.3,12.2-6.3,12.2s7.3-1.4,12.2-6.3C21.5,9.3,21.4,3.9,21.4,3.9z"/></svg>
+            </span>
+            <span class="font-serif text-xl font-bold tracking-tight text-ink">ucChicken</span>
+        </a>
+
+        <div class="hidden lg:flex items-center bg-cream/80 backdrop-blur-md rounded-full px-8 py-2.5 border border-rule gap-8">
+            <a href="#problem" class="text-sm font-semibold text-slate hover:text-ink transition">The Problem</a>
+            <a href="#how" class="text-sm font-semibold text-slate hover:text-ink transition">How It Works</a>
+            <a href="#video" class="text-sm font-semibold text-slate hover:text-ink transition">See the System</a>
+            <a href="#advantages" class="text-sm font-semibold text-slate hover:text-ink transition">Advantages</a>
+        </div>
+
+        <a href="#cta" class="bg-green hover:bg-green-dark transition text-white text-xs font-bold uppercase tracking-wider px-6 py-3 rounded">
+            Request a Plant Walk
+        </a>
+    </nav>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="relative pt-36 pb-20 md:pt-48 md:pb-32 px-5 md:px-10 overflow-hidden">
+    <div class="max-w-[1320px] mx-auto relative z-10">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-12">
+            <div class="flex-1 hero-text">
+                <p class="text-xs font-bold uppercase tracking-[0.2em] text-green mb-6">AI-Powered Poultry Grading</p>
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-[5.5rem] font-black leading-[0.92] tracking-tight text-ink">
+                    Every bird<br>graded in 185<br>milliseconds
+                </h1>
+                <p class="mt-8 text-base md:text-lg text-stone leading-relaxed max-w-md">
+                    A camera box that mounts to your ceiling, scans every bird from six angles, and sends A/B/C to your PLC. Installs in a day. We don't touch your line.
+                </p>
+                <div class="mt-10 flex flex-wrap gap-3">
+                    <a href="#cta" class="bg-green hover:bg-green-dark transition text-white text-xs font-bold uppercase tracking-wider px-8 py-4 rounded cursor-pointer">
+                        Request a Plant Walk
+                    </a>
+                    <a href="#video" class="bg-transparent border-[1.5px] border-ink text-ink hover:border-stone hover:text-stone transition text-xs font-bold uppercase tracking-wider px-8 py-4 rounded cursor-pointer">
+                        Watch the System
+                    </a>
+                </div>
+            </div>
+            <div class="flex-1 flex justify-end hero-img">
+                <div class="w-full max-w-[520px]">
+                    <img src="assets/hero_illustration.png" alt="Isometric view of PucPucChicken inspection box with six cameras scanning birds on overhead conveyor" class="w-full h-auto mix-blend-multiply">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ STAT CARDS ═══════════ -->
+<section class="px-5 md:px-10 pb-20" data-r>
+    <div class="max-w-[1320px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="stat-card bg-white border border-rule rounded-2xl p-8 flex flex-col justify-between min-h-[160px]" data-r>
+            <span class="font-serif text-4xl md:text-5xl font-bold text-ink" data-count="185" data-suffix="ms">0</span>
+            <p class="text-[10px] uppercase font-bold text-stone tracking-[0.15em] mt-3 leading-tight">Average<br>processing time</p>
+        </div>
+        <div class="stat-card bg-cream-dark border border-rule rounded-2xl p-8 flex flex-col justify-between min-h-[160px]" data-r data-d="1">
+            <span class="font-serif text-4xl md:text-5xl font-bold text-ink" data-count="6" data-suffix="">0</span>
+            <p class="text-[10px] uppercase font-bold text-stone tracking-[0.15em] mt-3 leading-tight">Synchronized GigE<br>cameras</p>
+        </div>
+        <div class="stat-card bg-cream-dark border border-rule rounded-2xl p-8 flex flex-col justify-between min-h-[160px]" data-r data-d="2">
+            <span class="font-serif text-4xl md:text-5xl font-bold text-ink" data-count="94" data-prefix="87–" data-suffix="%">0</span>
+            <p class="text-[10px] uppercase font-bold text-stone tracking-[0.15em] mt-3 leading-tight">Detection accuracy<br>across all defect types</p>
+        </div>
+        <div class="stat-card bg-white border border-rule rounded-2xl p-8 flex flex-col justify-between min-h-[160px]" data-r data-d="3">
+            <span class="font-serif text-4xl md:text-5xl font-bold text-ink" data-static="24/7">24/7</span>
+            <p class="text-[10px] uppercase font-bold text-stone tracking-[0.15em] mt-3 leading-tight">Continuous operation<br>zero accuracy drift</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ BIG BACKGROUND TEXT ═══════════ -->
+<div class="overflow-hidden py-6 select-none pointer-events-none">
+    <h2 class="bg-text">YIELD · COMPLIANCE · LABOR SAVINGS · YIELD · COMPLIANCE · LABOR SAVINGS ·</h2>
+</div>
+
+<!-- ═══════════ THE PROBLEM ═══════════ -->
+<section id="problem" class="py-24 md:py-32 px-5 md:px-10 bg-ink text-white overflow-hidden relative">
+    <div class="absolute inset-0 flex items-center justify-center opacity-[0.03] select-none pointer-events-none">
+        <h2 class="font-serif text-[22vw] font-black whitespace-nowrap">87%</h2>
+    </div>
+    <div class="max-w-[1320px] mx-auto relative z-10">
+        <div class="mb-16" data-r>
+            <p class="text-stone text-sm font-semibold mb-4">01 — The Problem</p>
+            <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl font-black leading-[0.92] max-w-3xl">
+                Your operators are defaulting&nbsp;to&nbsp;B.
+            </h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start" data-r>
+            <div>
+                <p class="text-white/70 leading-relaxed text-lg">
+                    Every time a borderline bird passes the grading station, your operators make a split-second call. After years of complaints from premium buyers and retraining from management, they've learned to play it safe — <span class="text-white font-semibold">if it might be B, they grade it B.</span>
+                </p>
+                <p class="text-white/70 leading-relaxed text-lg mt-6">
+                    That means premium birds going to standard channels. Across millions of birds per year, the revenue bleeds silently. And the problem isn't training — <span class="text-white font-semibold">human visual accuracy caps at 87%.</span> That's biology, not a skill gap.
+                </p>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <span class="font-serif text-4xl font-bold text-green-pale">$1.3M</span>
+                    <p class="text-white/50 text-sm mt-2 uppercase tracking-wider font-semibold">Annual loss at 100K birds/day, 5% misgrade rate</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <span class="font-serif text-4xl font-bold text-green-pale">$650K</span>
+                    <p class="text-white/50 text-sm mt-2 uppercase tracking-wider font-semibold">Annual loss at 50K birds/day, 5% misgrade rate</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+                    <span class="font-serif text-4xl font-bold text-green-pale">87%</span>
+                    <p class="text-white/50 text-sm mt-2 uppercase tracking-wider font-semibold">Maximum human visual inspection accuracy</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ HOW IT WORKS ═══════════ -->
+<section id="how" class="py-24 md:py-32 px-5 md:px-10">
+    <div class="max-w-[1320px] mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 border-b border-rule pb-12" data-r>
+            <div>
+                <p class="text-stone text-sm font-semibold mb-4">02 — How It Works</p>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold">Four stages. One pipeline.</h2>
+            </div>
+            <a href="#cta" class="mt-6 md:mt-0 flex items-center gap-2 group cursor-pointer">
+                <span class="font-bold border-b border-ink pb-1">Request a Plant Walk</span>
+                <svg class="w-4 h-4 -rotate-45 group-hover:rotate-0 transition duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- Capture -->
+            <div class="svc-card relative h-[420px] rounded-3xl overflow-hidden group cursor-default" data-r>
+                <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-transparent z-10"></div>
+                <img src="assets/hero_illustration.png" class="absolute inset-0 w-full h-full object-cover opacity-30">
+                <div class="absolute inset-0 p-8 flex flex-col justify-between text-white z-20">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-green-pale">Step 01</span>
+                        <h3 class="font-serif text-3xl font-bold mt-2">Capture</h3>
+                    </div>
+                    <p class="text-sm text-white/80 leading-relaxed">Six GigE cameras fire simultaneously — full 360° surface coverage in a single coordinated trigger.</p>
+                </div>
+            </div>
+
+            <!-- Detect -->
+            <div class="svc-card relative h-[420px] rounded-3xl overflow-hidden group cursor-default" data-r data-d="1">
+                <div class="absolute inset-0 bg-gradient-to-t from-green-dark/90 via-green/40 to-transparent z-10"></div>
+                <img src="assets/hero_illustration.png" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                <div class="absolute inset-0 p-8 flex flex-col justify-between text-white z-20">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-green-pale">Step 02</span>
+                        <h3 class="font-serif text-3xl font-bold mt-2">Detect</h3>
+                    </div>
+                    <p class="text-sm text-white/80 leading-relaxed">Deep learning model identifies skin tears, bruising, broken bones, and feathering in 174ms on NVIDIA GPU.</p>
+                </div>
+            </div>
+
+            <!-- Grade -->
+            <div class="svc-card relative h-[420px] rounded-3xl overflow-hidden group cursor-default" data-r data-d="2">
+                <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-transparent z-10"></div>
+                <img src="assets/hero_illustration.png" class="absolute inset-0 w-full h-full object-cover opacity-30">
+                <div class="absolute inset-0 p-8 flex flex-col justify-between text-white z-20">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-green-pale">Step 03</span>
+                        <h3 class="font-serif text-3xl font-bold mt-2">Grade</h3>
+                    </div>
+                    <p class="text-sm text-white/80 leading-relaxed">Deterministic rules assign A, B, or C. 3D deduplication prevents false downgrades and protects yield.</p>
+                </div>
+            </div>
+
+            <!-- Route -->
+            <div class="svc-card relative h-[420px] rounded-3xl overflow-hidden group cursor-default" data-r data-d="3">
+                <div class="absolute inset-0 bg-gradient-to-t from-green-dark/90 via-green/40 to-transparent z-10"></div>
+                <img src="assets/hero_illustration.png" class="absolute inset-0 w-full h-full object-cover opacity-20">
+                <div class="absolute inset-0 p-8 flex flex-col justify-between text-white z-20">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-[0.2em] text-green-pale">Step 04</span>
+                        <h3 class="font-serif text-3xl font-bold mt-2">Route</h3>
+                    </div>
+                    <p class="text-sm text-white/80 leading-relaxed">Grade signal hits your PLC via EtherNet/IP before the bird reaches the diverter. Gate pre-positioned every time.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ COMPATIBILITY STRIP ═══════════ -->
+<div class="py-10 border-y border-rule bg-cream-light" data-r>
+    <div class="max-w-[1320px] mx-auto px-5 md:px-10 flex flex-wrap justify-center items-center gap-8 md:gap-16">
+        <span class="text-xs font-bold uppercase tracking-[0.15em] text-stone">Communicates via EtherNet/IP · Integrates with:</span>
+        <span class="font-serif text-2xl font-bold text-ink/30">Marel</span>
+        <span class="font-serif text-2xl font-bold text-ink/30">Meyn</span>
+        <span class="font-serif text-2xl font-bold text-ink/30">BAADER</span>
+        <span class="font-serif text-2xl font-bold text-ink/30">Gainco</span>
+    </div>
+</div>
+
+<!-- ═══════════ ROI SECTION ═══════════ -->
+<section class="py-24 md:py-36 px-5 md:px-10 overflow-hidden relative">
+    <div class="max-w-[1000px] mx-auto text-center relative z-10" data-r>
+        <h2 class="font-serif text-4xl md:text-6xl lg:text-7xl font-black leading-[1] tracking-tight text-ink">
+            Pays for itself<br>
+            in <span class="text-green">3–5 months.</span>
+        </h2>
+        <p class="mt-8 text-stone text-lg max-w-xl mx-auto leading-relaxed">
+            If just 5% of your birds are being downgraded unnecessarily at 100,000 birds per day, that's $25,000–$50,000 in lost revenue every single day.
+        </p>
+    </div>
+    <!-- Abstract bg pills -->
+    <div class="absolute -left-16 top-1/2 -translate-y-1/2 opacity-[0.04] select-none pointer-events-none">
+        <div class="w-36 h-[500px] border-2 border-ink rounded-full"></div>
+    </div>
+    <div class="absolute -right-16 top-1/2 -translate-y-1/2 opacity-[0.04] select-none pointer-events-none">
+        <div class="w-36 h-[500px] border-2 border-ink rounded-full"></div>
+    </div>
+</section>
+
+<!-- ═══════════ VIDEO SECTION ═══════════ -->
+<section id="video" class="bg-ink py-24 md:py-32 px-5 md:px-10 text-white">
+    <div class="max-w-[1320px] mx-auto">
+        <div class="flex flex-col md:flex-row items-start gap-4 mb-12" data-r>
+            <div>
+                <p class="text-stone text-sm font-semibold mb-4">03 — See the System</p>
+                <h2 class="font-serif text-5xl md:text-7xl font-black leading-[0.9]">The 87%<br>Ceiling</h2>
+            </div>
+            <p class="md:ml-auto md:mt-auto text-white/50 max-w-xs text-sm leading-relaxed">Why human grading has a biological limit — and what replaces it.</p>
+        </div>
+        <div class="rounded-3xl overflow-hidden aspect-video bg-black shadow-2xl" data-r>
+            <video class="w-full h-full object-cover" controls preload="metadata" poster="">
+                <source src="The_87__Ceiling.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ ADVANTAGES ═══════════ -->
+<section id="advantages" class="py-24 md:py-32 px-5 md:px-10">
+    <div class="max-w-[1320px] mx-auto">
+        <div class="mb-16" data-r>
+            <p class="text-stone text-sm font-semibold mb-4">04 — What You Get</p>
+            <h2 class="font-serif text-4xl md:text-5xl font-bold max-w-xl">Built for the production floor.</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="bg-white border border-rule rounded-2xl p-8 stat-card" data-r>
+                <div class="w-10 h-10 rounded-lg bg-green-pale flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <h3 class="font-serif text-xl font-bold mb-2">100% Line Throughput</h3>
+                <p class="text-stone text-sm leading-relaxed">Keeps pace with the conveyor at any line speed. Inspection happens inline with zero slowdown to your operation.</p>
+            </div>
+            <div class="bg-cream-dark border border-rule rounded-2xl p-8 stat-card" data-r data-d="1">
+                <div class="w-10 h-10 rounded-lg bg-green-pale flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10 10z"/></svg>
+                </div>
+                <h3 class="font-serif text-xl font-bold mb-2">Consistent Grading</h3>
+                <p class="text-stone text-sm leading-relaxed">Same standard every shift. No operator fatigue, no complaint-driven drift, no Monday morning accuracy dips.</p>
+            </div>
+            <div class="bg-white border border-rule rounded-2xl p-8 stat-card" data-r data-d="2">
+                <div class="w-10 h-10 rounded-lg bg-green-pale flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </div>
+                <h3 class="font-serif text-xl font-bold mb-2">Full Audit Trail</h3>
+                <p class="text-stone text-sm leading-relaxed">Every bird recorded: six images, defect coordinates, grade, timestamp. USDA-ready. Searchable. Exportable.</p>
+            </div>
+            <div class="bg-cream-dark border border-rule rounded-2xl p-8 stat-card" data-r>
+                <div class="w-10 h-10 rounded-lg bg-green-pale flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <h3 class="font-serif text-xl font-bold mb-2">False-Positive Prevention</h3>
+                <p class="text-stone text-sm leading-relaxed">3D deduplication maps overlapping camera detections to one defect. A bruise seen by two cameras counts once.</p>
+            </div>
+            <div class="bg-white border border-rule rounded-2xl p-8 stat-card" data-r data-d="1">
+                <div class="w-10 h-10 rounded-lg bg-green-pale flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+                </div>
+                <h3 class="font-serif text-xl font-bold mb-2">Pre-Diverter Routing</h3>
+                <p class="text-stone text-sm leading-relaxed">Grade hits the PLC before the bird reaches the gate. No late rejections. No mis-routes. Gate pre-positioned every time.</p>
+            </div>
+            <div class="bg-cream-dark border border-rule rounded-2xl p-8 stat-card" data-r data-d="2">
+                <div class="w-10 h-10 rounded-lg bg-green-pale flex items-center justify-center mb-5">
+                    <svg class="w-5 h-5 text-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+                </div>
+                <h3 class="font-serif text-xl font-bold mb-2">Over-the-Air Updates</h3>
+                <p class="text-stone text-sm leading-relaxed">Retrain the AI for new defect types, new product varieties, or new grading standards. No new hardware needed.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ CONVEYOR ═══════════ -->
+<section class="w-full bg-cream-dark border-y border-rule overflow-hidden" data-r>
+    <img src="assets/conveyor_illustration.png" alt="Technical illustration of birds moving through the PucPucChicken inspection system" class="w-full max-w-[1400px] mx-auto h-auto mix-blend-multiply">
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section id="cta" class="py-24 md:py-36 px-5 md:px-10 bg-cream">
+    <div class="max-w-[1320px] mx-auto" data-r>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <p class="text-stone text-sm font-semibold mb-4">05 — Next Steps</p>
+                <h2 class="font-serif text-4xl md:text-6xl font-black leading-[0.92]">Let us walk<br>your line.</h2>
+                <p class="mt-6 text-stone text-lg leading-relaxed max-w-md">
+                    We'll observe your grading station and tell you exactly what we'd do. No charge. No pitch. If it doesn't make sense for your operation, we'll say so.
+                </p>
+                <div class="mt-10 flex flex-wrap gap-3">
+                    <a href="#cta" class="bg-green hover:bg-green-dark transition text-white text-xs font-bold uppercase tracking-wider px-8 py-4 rounded cursor-pointer">
+                        Request a Plant Walk
+                    </a>
+                </div>
+            </div>
+            <div class="bg-white border border-rule rounded-3xl p-10">
+                <h3 class="font-serif text-2xl font-bold mb-8">How it works from here:</h3>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-green text-white flex items-center justify-center font-serif font-bold shrink-0">1</div>
+                        <div><p class="font-bold text-ink">Plant walk</p><p class="text-stone text-sm">We visit your facility and observe your grading process.</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-green text-white flex items-center justify-center font-serif font-bold shrink-0">2</div>
+                        <div><p class="font-bold text-ink">Custom configuration</p><p class="text-stone text-sm">Camera placement, PLC integration, and grading rules for your line.</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-green text-white flex items-center justify-center font-serif font-bold shrink-0">3</div>
+                        <div><p class="font-bold text-ink">Build and deliver</p><p class="text-stone text-sm">Hardware delivered in 4–6 weeks. Installation in one day.</p></div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 rounded-full bg-green text-white flex items-center justify-center font-serif font-bold shrink-0">4</div>
+                        <div><p class="font-bold text-ink">Go live</p><p class="text-stone text-sm">AI model trained on your line in 2–3 weeks. System operational.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ TRUST STRIP ═══════════ -->
+<div class="py-8 border-y border-rule text-center">
+    <p class="text-xs font-bold uppercase tracking-[0.15em] text-stone">
+        Built and deployed by Singh Automation, LLC — Portage, MI · FANUC Authorized System Integrator
+    </p>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="bg-ink text-white py-16 px-5 md:px-10">
+    <div class="max-w-[1320px] mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+            <div>
+                <h5 class="text-xs font-bold tracking-[0.15em] text-stone mb-6 uppercase">Contact</h5>
+                <p class="text-white/40 text-sm leading-relaxed">Portage, Michigan</p>
+            </div>
+            <div>
+                <h5 class="text-xs font-bold tracking-[0.15em] text-stone mb-6 uppercase">Quick Links</h5>
+                <nav class="flex flex-col space-y-3">
+                    <a href="#problem" class="text-green-pale font-bold hover:underline text-sm">The Problem</a>
+                    <a href="#how" class="text-green-pale font-bold hover:underline text-sm">How It Works</a>
+                    <a href="#video" class="text-green-pale font-bold hover:underline text-sm">See the System</a>
+                    <a href="#advantages" class="text-green-pale font-bold hover:underline text-sm">Advantages</a>
+                </nav>
+            </div>
+            <div class="flex flex-col justify-end">
+                <a href="#cta" class="bg-green hover:bg-green-light transition text-white text-xs font-bold uppercase tracking-wider px-6 py-4 rounded text-center cursor-pointer">
+                    Request a Plant Walk
+                </a>
+            </div>
+        </div>
+        <hr class="border-white/10 mb-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-white/30">
+            <div class="font-serif text-3xl font-bold text-white/20 italic tracking-wider">PucPucChicken</div>
+            <p>© 2026 Singh Automation, LLC · All rights reserved.</p>
+            <a href="#" class="flex items-center gap-2 text-white/40 hover:text-white transition">
+                Back to top
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 15l7-7 7 7"/></svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('v'); io.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('[data-r]').forEach(el => io.observe(el));
+
+// Stats count-up
+let counted = false;
+const so = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting && !counted) {
+            counted = true;
+            document.querySelectorAll('[data-count]').forEach(el => {
+                const t = parseInt(el.dataset.count), pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+                const dur = 1100, start = performance.now();
+                (function tick(now) {
+                    const p = Math.min((now - start) / dur, 1), eased = 1 - Math.pow(1 - p, 3);
+                    el.textContent = pre + Math.round(eased * t) + suf;
+                    if (p < 1) requestAnimationFrame(tick);
+                })(start);
+            });
+            so.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.3 });
+document.querySelector('[data-count]')?.closest('section')?.let?.(s => so.observe(s));
+// Fallback: observe first stat card parent
+const statSection = document.querySelector('[data-count]')?.closest('section');
+if (statSection) so.observe(statSection);
+
+// Navbar scroll effect
+const nw = document.getElementById('nav-wrap');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+        nw.classList.add('bg-cream/90', 'backdrop-blur-md', 'shadow-sm');
+    } else {
+        nw.classList.remove('bg-cream/90', 'backdrop-blur-md', 'shadow-sm');
+    }
+}, { passive: true });
+</script>
+
+</body>
+</html>
