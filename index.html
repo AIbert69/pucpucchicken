@@ -430,8 +430,11 @@
         </div>
         <div>
             <p class="text-white/60 text-sm mb-6">Tell us about your operation. We'll reply within one business day.</p>
-            <form id="contact-form" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+            <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <input type="hidden" name="access_key" value="32d8fd78-da14-41af-b542-4637c811086c">
+            <input type="hidden" name="subject" value="New PucPucChicken inquiry">
+            <input type="hidden" name="from_name" value="PucPucChicken Website">
+            <input type="checkbox" name="botcheck" class="hidden" style="display:none" aria-hidden="true" tabindex="-1">
             <label for="cf-name" class="sr-only">Full name</label>
             <input id="cf-name" required name="name" type="text" placeholder="Full name" class="bg-white/5 border border-white/20 rounded-xl px-5 py-4 text-white placeholder:text-white/40 focus:outline-none focus:border-green focus-visible:ring-2 focus-visible:ring-green">
             <label for="cf-company" class="sr-only">Company</label>
@@ -442,9 +445,10 @@
             <input id="cf-phone" name="phone" type="tel" placeholder="Phone (optional)" class="bg-white/5 border border-white/20 rounded-xl px-5 py-4 text-white placeholder:text-white/40 focus:outline-none focus:border-green focus-visible:ring-2 focus-visible:ring-green">
             <label for="cf-message" class="sr-only">Message</label>
             <textarea id="cf-message" required name="message" rows="5" placeholder="Tell us about your line — birds per day, current grading setup, what's driving the conversation." class="md:col-span-2 bg-white/5 border border-white/20 rounded-xl px-5 py-4 text-white placeholder:text-white/40 focus:outline-none focus:border-green focus-visible:ring-2 focus-visible:ring-green"></textarea>
-            <button type="submit" class="md:col-span-2 bg-green hover:bg-green-dark transition text-white text-xs font-bold uppercase tracking-wider px-8 py-4 rounded cursor-pointer">
+            <button type="submit" id="cf-submit" class="md:col-span-2 bg-green hover:bg-green-dark transition text-white text-xs font-bold uppercase tracking-wider px-8 py-4 rounded cursor-pointer disabled:opacity-60 disabled:cursor-wait">
                 Send message
             </button>
+            <p id="cf-status" class="md:col-span-2 text-sm hidden" role="status" aria-live="polite"></p>
             </form>
         </div>
     </div>
@@ -559,13 +563,35 @@ if (mt && mm) {
 
 const cf = document.getElementById('contact-form');
 if (cf) {
-    cf.addEventListener('submit', (e) => {
+    const btn = document.getElementById('cf-submit');
+    const status = document.getElementById('cf-status');
+    cf.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const d = new FormData(cf);
-        if (d.get('website')) return;
-        const subject = `PucPucChicken inquiry — ${d.get('company') || d.get('name')}`;
-        const body = `Name: ${d.get('name')}\nCompany: ${d.get('company')}\nEmail: ${d.get('email')}\nPhone: ${d.get('phone') || '-'}\n\n${d.get('message')}`;
-        window.location.href = `mailto:albert@singhautomation.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        btn.disabled = true;
+        const originalText = btn.textContent;
+        btn.textContent = 'Sending…';
+        status.className = 'md:col-span-2 text-sm hidden';
+        try {
+            const res = await fetch(cf.action, {
+                method: 'POST',
+                body: new FormData(cf),
+                headers: { 'Accept': 'application/json' }
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                status.textContent = 'Thanks — we received your message and will reply within one business day.';
+                status.className = 'md:col-span-2 text-sm text-green-pale';
+                cf.reset();
+            } else {
+                throw new Error(data.message || 'Submission failed');
+            }
+        } catch (err) {
+            status.textContent = 'Something went wrong. Please email albert@singhautomation.com directly.';
+            status.className = 'md:col-span-2 text-sm text-red-300';
+        } finally {
+            btn.disabled = false;
+            btn.textContent = originalText;
+        }
     });
 }
 </script>
