@@ -341,10 +341,15 @@
             </div>
             <p class="md:ml-auto md:mt-auto text-white/50 max-w-xs text-sm leading-relaxed">Watch the system run on a live processing line — capture, detect, grade, route.</p>
         </div>
-        <div class="rounded-3xl overflow-hidden aspect-video bg-black shadow-2xl" data-r>
-            <video id="see-video" class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata" poster="">
+        <div class="relative rounded-3xl overflow-hidden aspect-video bg-black shadow-2xl" data-r>
+            <video id="see-video" class="w-full h-full object-cover cursor-pointer" autoplay loop muted playsinline preload="metadata" poster="">
                 <source src="assets/see_the_system.mp4" type="video/mp4">
             </video>
+            <button id="see-video-unmute" type="button" aria-label="Unmute video" class="absolute bottom-4 right-4 flex items-center gap-2 bg-white/90 hover:bg-white text-ink text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded-full shadow-lg backdrop-blur transition">
+                <svg id="see-video-icon-muted" aria-hidden="true" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5 6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6"/></svg>
+                <svg id="see-video-icon-on" aria-hidden="true" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5 6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg>
+                <span id="see-video-label">Tap for sound</span>
+            </button>
         </div>
     </div>
 </section>
@@ -542,11 +547,37 @@ const hv = document.getElementById('see-video');
 if (hv) {
     new IntersectionObserver((entries) => {
         entries.forEach(e => {
-            if (e.isIntersecting) {
-                hv.play().catch(() => {});
-            } else hv.pause();
+            if (e.isIntersecting) hv.play().catch(() => {});
+            else hv.pause();
         });
     }, { threshold: 0.5 }).observe(hv);
+
+    const unmuteBtn = document.getElementById('see-video-unmute');
+    const iconMuted = document.getElementById('see-video-icon-muted');
+    const iconOn = document.getElementById('see-video-icon-on');
+    const unmuteLabel = document.getElementById('see-video-label');
+    const syncUnmuteUi = () => {
+        if (!unmuteBtn) return;
+        if (!hv.muted) {
+            unmuteBtn.setAttribute('aria-label', 'Mute video');
+            unmuteLabel.textContent = 'Mute';
+            iconMuted.classList.add('hidden');
+            iconOn.classList.remove('hidden');
+        } else {
+            unmuteBtn.setAttribute('aria-label', 'Unmute video');
+            unmuteLabel.textContent = 'Tap for sound';
+            iconOn.classList.add('hidden');
+            iconMuted.classList.remove('hidden');
+        }
+    };
+    const toggleSound = (ev) => {
+        if (ev) ev.stopPropagation();
+        hv.muted = !hv.muted;
+        if (!hv.muted) { hv.volume = 1; hv.play().catch(() => {}); }
+        syncUnmuteUi();
+    };
+    if (unmuteBtn) unmuteBtn.addEventListener('click', toggleSound);
+    hv.addEventListener('click', toggleSound);
 }
 
 const mt = document.getElementById('mobile-toggle');
