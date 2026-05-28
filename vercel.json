@@ -1,4 +1,14 @@
 {
-    "cleanUrls": true,
-    "trailingSlash": false
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/blog", "destination": "/field-notes", "permanent": true },
+    { "source": "/blog/borderline-birds", "destination": "/field-notes#borderline-birds", "permanent": true },
+    { "source": "/blog/grader-drift", "destination": "/field-notes#grader-drift", "permanent": true },
+    { "source": "/blog/one-day-install", "destination": "/field-notes#one-day-install", "permanent": true },
+    { "source": "/tools/borderline-bird-calculator", "destination": "/calculator", "permanent": true },
+    { "source": "/tools/grader-drift-methodology", "destination": "/field-notes#methodology", "permanent": true },
+    { "source": "/tools/site-readiness-checklist", "destination": "/field-notes#site-readiness", "permanent": true },
+    { "source": "/tools", "destination": "/field-notes", "permanent": true }
+  ]
 }

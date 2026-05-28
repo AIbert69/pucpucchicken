@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Field Notes — PucPucChicken</title>
+<meta name="description" content="Operator-to-operator field notes on poultry vision grading: the margin leak from borderline birds, why human graders drift, how a one-weekend install actually goes in, the validation methodology, and a pre-install site-readiness checklist." />
+<link rel="canonical" href="https://pucpucchicken.com/field-notes" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Field Notes — PucPucChicken" />
+<meta property="og:description" content="Operator-to-operator field notes on poultry grading: the margin leak, grader drift, the install, the methodology, the site-readiness checklist." />
+<meta property="og:url" content="https://pucpucchicken.com/field-notes" />
+<meta property="og:site_name" content="PucPucChicken" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#2A2A25;
+    --slate:#4A4A42;
+    --green:#3D5A3E;
+    --green-dark:#2F4530;
+    --green-light:#4A6E4B;
+    --green-pale:#E8F0E4;
+    --cream:#F5EFE0;
+    --cream-dark:#EDE6D4;
+    --cream-light:#FAF8F2;
+    --stone:#8A8778;
+    --rule:#D8D1C2;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+  h1,h2,h3{font-family:"Playfair Display",Georgia,serif;font-weight:700}
+
+  /* Layout */
+  .wrap{max-width:720px;margin:0 auto;padding:56px 24px 96px}
+  header.cover{padding-bottom:8px}
+  .byline{font-family:"DM Sans",system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin:0 0 14px}
+  h1{font-size:48px;line-height:1.05;margin:0 0 14px;letter-spacing:-.02em;color:var(--ink)}
+  .lede{font-size:19px;color:var(--slate);margin:0 0 6px;max-width:62ch}
+  .meta{font-family:"DM Sans",system-ui,sans-serif;font-size:13px;color:var(--stone);margin:20px 0 0;letter-spacing:.02em}
+
+  /* TOC */
+  nav.toc{margin:36px 0 8px;padding:22px 0 4px;border-top:1px solid var(--rule)}
+  nav.toc ol{list-style:none;counter-reset:toc;padding:0;margin:0;display:grid;gap:8px}
+  nav.toc li{counter-increment:toc;font-family:"DM Sans",system-ui,sans-serif;font-size:14.5px;line-height:1.45;color:var(--slate)}
+  nav.toc li::before{content:counter(toc,decimal-leading-zero) " ";color:var(--stone);font-feature-settings:"tnum";margin-right:10px;font-weight:600}
+  nav.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+  nav.toc a:hover{border-color:var(--green)}
+  nav.toc .read{color:var(--stone);margin-left:8px;font-size:13px}
+
+  /* Section structure */
+  section.chapter{padding-top:56px;margin-top:56px;border-top:1px solid var(--rule);scroll-margin-top:24px}
+  section.chapter:first-of-type{border-top:0;margin-top:32px;padding-top:32px}
+  .chapter-tag{font-family:"DM Sans",system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin:0 0 8px}
+  .chapter-tag .num{color:var(--stone);font-feature-settings:"tnum";margin-right:10px}
+  h2{font-size:34px;line-height:1.12;margin:0 0 8px;letter-spacing:-.015em;color:var(--ink)}
+  .chapter-dek{font-size:18px;color:var(--slate);margin:0 0 28px;max-width:60ch}
+
+  /* Long-form body */
+  h3{font-size:22px;line-height:1.22;margin:36px 0 12px;color:var(--green-dark);letter-spacing:-.005em}
+  p{margin:0 0 16px;font-size:17px}
+  ul,ol{margin:0 0 16px;padding-left:22px}
+  li{margin:0 0 8px;font-size:17px}
+  strong{color:var(--green-dark)}
+  em{color:var(--ink)}
+  a.inline{color:var(--green);text-decoration:none;border-bottom:1px solid var(--green-pale);transition:border-color .15s}
+  a.inline:hover{border-color:var(--green)}
+
+  /* Pull-quote formula */
+  blockquote{margin:28px 0;padding:24px 28px;background:var(--cream-dark);border:0;border-radius:4px;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:20px;line-height:1.4;color:var(--ink)}
+  blockquote strong{color:var(--green-dark)}
+
+  /* Question A / B treatment (methodology) */
+  .qbox{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:18px 22px;margin:14px 0}
+  .qbox p{margin:0;font-size:17px}
+  .qtag{display:inline-block;font-family:"DM Sans",system-ui,sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:var(--green-pale);padding:3px 9px;border-radius:3px;margin-right:10px;vertical-align:middle}
+
+  /* Callout (lessons / "if this is a problem") */
+  .callout{background:var(--cream-dark);padding:20px 24px;font-size:16.5px;color:var(--ink);margin:22px 0;border-radius:4px}
+  .callout > strong:first-of-type{display:inline-block;color:var(--green-dark);font-family:"DM Sans",system-ui,sans-serif;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-right:8px}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;margin:24px 0;background:#fff;border:1px solid var(--rule);border-radius:6px;overflow:hidden;font-size:15px}
+  th{text-align:left;padding:12px 14px;background:var(--green-dark);color:#fff;font-family:"DM Sans",system-ui,sans-serif;font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+  td{padding:12px 14px;border-top:1px solid var(--rule);vertical-align:top;color:var(--ink)}
+  td:first-child{font-family:"DM Sans",system-ui,sans-serif;font-weight:600;color:var(--green-dark);white-space:nowrap}
+
+  /* Checklist with real checkboxes */
+  ul.check{list-style:none;padding-left:0;margin:0 0 18px}
+  ul.check li{display:flex;align-items:flex-start;gap:14px;padding:9px 0;font-size:16.5px;border-bottom:1px dashed var(--rule)}
+  ul.check li:last-child{border-bottom:0}
+  ul.check input[type="checkbox"]{appearance:none;-webkit-appearance:none;flex:0 0 auto;width:18px;height:18px;margin-top:3px;border:1.5px solid var(--green);border-radius:3px;background:#fff;cursor:pointer;position:relative;transition:background .15s}
+  ul.check input[type="checkbox"]:checked{background:var(--green)}
+  ul.check input[type="checkbox"]:checked::after{content:"";position:absolute;left:4px;top:0;width:7px;height:12px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  ul.check label{flex:1;cursor:pointer}
+  ul.check input[type="checkbox"]:checked + label{color:var(--stone);text-decoration:line-through}
+
+  /* Inline "see also" cross-references */
+  ul.measure{margin:0 0 18px;padding-left:22px}
+  ul.measure li{font-size:16.5px;color:var(--ink)}
+
+  /* CTA card */
+  .cta{background:var(--green-dark);color:var(--cream);border-radius:6px;padding:30px;margin:40px 0}
+  .cta h3{margin:0 0 8px;font-size:22px;color:#fff;font-family:"Playfair Display",Georgia,serif;line-height:1.2;letter-spacing:-.005em}
+  .cta p{margin:0 0 18px;font-size:16px;color:#dfe7e1;max-width:54ch}
+  .cta a.btn{display:inline-block;font-family:"DM Sans",system-ui,sans-serif;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--cream);color:var(--ink);text-decoration:none;border-radius:4px;padding:13px 22px;transition:background .15s}
+  .cta a.btn:hover{background:#fff}
+
+  /* Reference sections (methodology / checklist intros) */
+  .ref-tag{font-family:"DM Sans",system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--stone);margin:0 0 8px}
+
+  /* Sign-off + foot */
+  .signoff{font-family:"Playfair Display",Georgia,serif;font-style:italic;color:var(--slate);font-size:18px;margin:40px 0 12px;line-height:1.5}
+  .signoff a{color:var(--green);text-decoration:none}
+  .foot{margin-top:64px;padding-top:24px;border-top:1px solid var(--rule);font-family:"DM Sans",system-ui,sans-serif;font-size:13px;color:var(--stone);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .foot a{color:var(--green);text-decoration:none}
+  .top{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+
+  @media (max-width:600px){
+    .wrap{padding:36px 20px 72px}
+    h1{font-size:34px}
+    h2{font-size:26px}
+    h3{font-size:19px}
+    p,li,blockquote{font-size:16.5px}
+    blockquote{padding:18px 20px}
+    .cta{padding:22px}
+    .cta h3{font-size:19px}
+    table{font-size:14px}
+    th,td{padding:9px 10px}
+    td:first-child{white-space:normal}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<header class="cover">
+  <p class="byline">PucPucChicken · Singh Automation</p>
+  <h1>Field Notes</h1>
+  <p class="lede">Operator to operator. The honest math on borderline birds, why human graders drift, how vision grading installs without an outside crew on your floor, the validation methodology, and the site-readiness checklist we walk on every survey.</p>
+  <p class="meta">Albert Mizuno · April 2026 · 25 min read end-to-end</p>
+</header>
+
+<nav class="toc" aria-label="Contents">
+  <ol>
+    <li><a href="#borderline-birds">Why your borderline birds default to B-grade</a><span class="read">5 min</span></li>
+    <li><a href="#grader-drift">A-grade vs B-grade: where human graders drift</a><span class="read">7 min</span></li>
+    <li><a href="#one-day-install">No crew on your line: how ceiling-mounted vision grading goes in</a><span class="read">5 min</span></li>
+    <li><a href="#methodology">The validation methodology</a><span class="read">6 min</span></li>
+    <li><a href="#site-readiness">Site-readiness checklist</a><span class="read">print companion</span></li>
+  </ol>
+</nav>
+
+<!-- ════════ 01 · BORDERLINE BIRDS ════════ -->
+<section class="chapter" id="borderline-birds">
+  <p class="chapter-tag"><span class="num">01</span>The margin leak</p>
+  <h2>Why your borderline birds default to B-grade (and what it's costing you)</h2>
+  <p class="chapter-dek">A bird comes down the shackle line at 165 a minute and the grader has about a third of a second to call it. Here's the math on the margin you're leaking, and the one-line formula to run on your own plant.</p>
+
+  <p>A bird comes down the shackle line at 165 per minute. The grader has about a third of a second to call it. Conformation looks clean, feathers are fine, but there's a bruise on the thigh that <em>might</em> be within tolerance, or might not. The grader calls it B, the shackle moves on, and that decision just cost you about seventy cents of margin. Now do it 15,000 more times this week. This is the margin leak nobody on your P&amp;L has line-of-sight to, and this section is the math on it.</p>
+
+  <h3>The problem: borderline birds don't get the benefit of the doubt</h3>
+  <p>Every grading line has a borderline population. Birds with bruising at the edge of tolerance, feather coverage just inside the threshold, conformation that's passable but not clean. In a well-run mid-tier plant, borderline birds are 3 to 5 percent of total throughput. They're not defects. They're decisions.</p>
+  <p>And the decision almost always goes the same direction.</p>
+  <p>Human graders, working at line speed under repetitive visual load, make defensive calls. "Defensive" is a precise word here. It means: when the evidence is ambiguous, the grader assigns the class that's hardest to challenge on a re-check. A bird called A-grade and later found to be B is a QA write-up. A bird called B-grade and later found to be A is silence, nobody re-audits upgrades. So the incentive runs one way. Uncertainty becomes down-grading.</p>
+  <p>This is not a grader-skill problem. Your best graders do it too. It's a decision-environment problem. You've put a human in a position where one error is visible and the other is invisible, and the rational response is to minimize the visible error. Training won't fix that. A different decision environment will.</p>
+
+  <h3>The math: what it costs a 250,000-bird-a-week plant</h3>
+  <p>Let me walk through a conservative number on a plant I'd consider mid-tier.</p>
+  <ul>
+    <li><strong>Weekly volume:</strong> 250,000 birds</li>
+    <li><strong>Borderline rate:</strong> 4% of total, call it 10,000 birds a week that are close calls</li>
+    <li><strong>Default-down rate on borderlines:</strong> 80%, of those 10,000 close calls, 8,000 get graded down to B</li>
+    <li><strong>Recoverable share:</strong> assume half of the down-graded birds were genuinely A if graded consistently. Call it 4,000 birds a week that <em>should</em> have been A</li>
+    <li><strong>A-to-B price delta:</strong> roughly $0.50 to $0.90 per bird at wholesale. Use $0.70 as a midpoint</li>
+  </ul>
+  <p>Multiply it out: 4,000 birds &times; $0.70 &times; 50 production weeks = <strong>$140,000 a year, minimum.</strong></p>
+  <p>Run the same math on a 500,000-bird plant and the number is $280,000. A million-bird plant is over half a million.</p>
+  <p>The thing that makes this leak invisible is that it never shows up as a variance. Your standard cost is what it always was. Your sell price per grade is what it always was. The leak is hidden in the <em>mix</em>, the ratio of A to B product leaving your dock, and nothing in a standard P&amp;L catches a mix drift that small.</p>
+  <p>The formula to run on your own line is one line:</p>
+  <blockquote><strong>(weekly bird count) &times; (borderline %) &times; (default-down rate) &times; (recoverable share) &times; (A&ndash;B price delta) &times; (weeks per year) = annual leak</strong></blockquote>
+  <p>If you know your own numbers, you can run it on a napkin in ninety seconds. If you don't, <a class="inline" href="https://pucpucchicken.com/calculator">the calculator</a> does it for you.</p>
+
+  <h3>What actually works: change the decision environment</h3>
+  <p>The wrong answer is to tell your graders to be more consistent. They can't be. Neither can you, neither can I. Visual inspection at 160-plus birds a minute, across an eight-hour shift, under fluorescent light, after your eye has seen ten thousand birds that morning, consistency is not a muscle a human can build. The research on inter-grader variance is unambiguous. Two trained graders looking at the same birds disagree at meaningful rates. The same grader, looking at the same birds four hours later, disagrees with themselves.</p>
+  <p>The right answer is to stop asking humans to be the consistency layer. Your humans are excellent at exception handling, escalation, and the calls that actually require judgment, a bird with a finding the spec didn't anticipate, a batch anomaly, a quality escalation. Those are the decisions that reward human attention. The borderline A-or-B call at line speed is not one of them. That call rewards <em>doing the same thing every time</em>, and "every time" is an engineering problem.</p>
+  <p>In practice this means a consistent grading layer that produces the same call on the same bird, every time, every shift, every lighting condition, every end-of-day fatigue state. The humans on your line move up the value stack to exception review and quality escalation. The call on the borderline bird stops drifting. The mix stabilizes.</p>
+  <p>That's the whole thesis. The borderline bird doesn't need a better grader. It needs a grader that doesn't get tired, doesn't get defensive, and doesn't care which way the audit goes.</p>
+
+  <h3>Take-home framework</h3>
+  <p>Write this on a sticky note and put it on your office monitor:</p>
+  <blockquote><strong>Margin leak = (birds &times; borderline % &times; default-down rate &times; recoverable share &times; A&ndash;B delta &times; weeks)</strong></blockquote>
+  <p>Three questions to ask your QA director this week:</p>
+  <ul>
+    <li>What percent of our birds are borderline calls?</li>
+    <li>Of those, what percent get graded down?</li>
+    <li>What's our A-to-B price delta at the dock right now?</li>
+  </ul>
+  <p>If they don't know, that is the finding. You can't fix a leak you can't measure.</p>
+
+  <div class="cta">
+    <h3>Run this on your own plant in two minutes.</h3>
+    <p>Plug in your weekly volume, borderline rate, and A-to-B delta. The calculator returns the annual leak in dollars and recoverable birds per week, with the formula laid bare.</p>
+    <a class="btn" href="https://pucpucchicken.com/calculator">Open the calculator →</a>
+  </div>
+</section>
+
+<!-- ════════ 02 · GRADER DRIFT ════════ -->
+<section class="chapter" id="grader-drift">
+  <p class="chapter-tag"><span class="num">02</span>Consistency, not accuracy</p>
+  <h2>A-grade vs B-grade: where human graders drift, and why</h2>
+  <p class="chapter-dek">USDA grade standards are engineered to a quarter-inch. The line is not. Fatigue, visual adaptation, and social conformity quietly reshape your A/B mix, and why a vision layer fixes the inconsistency, not the judgment.</p>
+
+  <p>Walk into any USDA-inspected poultry plant in the country and you will find the same grading criteria posted near the grading station. They come from the USDA poultry grade standards (administered by USDA AMS under 7 CFR Part 70), and they say exactly what an A-grade bird looks like: conformation, fleshing, fat covering, defeathering, exposed flesh, disjointed and broken bones, bruises. Each criterion has tolerances measured in fractions of an inch. The standard is precise. The line is not. This section is about the gap between the two, where it comes from, and why closing it is a consistency problem, not an accuracy problem.</p>
+
+  <h3>What the USDA standard actually says</h3>
+  <p>The USDA Agricultural Marketing Service defines poultry grades under 7 CFR Part 70. The grade standards for individual ready-to-cook carcasses cover, among other things:</p>
+  <ul>
+    <li><strong>Conformation:</strong> the bird's structural shape. A-grade allows only slight deformities, a slightly curved breastbone, a minor back curve.</li>
+    <li><strong>Fleshing:</strong> the amount of meat on the carcass relative to frame size. A-grade requires fleshing that is well-proportioned.</li>
+    <li><strong>Fat covering:</strong> sufficient fat to prevent a distinct appearance of the flesh through the skin.</li>
+    <li><strong>Defeathering:</strong> nonprotruding pinfeathers, and no more than a defined area of scattered protruding pinfeathers.</li>
+    <li><strong>Exposed flesh and bruises:</strong> disjointed or broken bones, skin tears, and discolorations, each with explicit size and location tolerances depending on carcass weight.</li>
+  </ul>
+  <p>These are not vague. The manual specifies tolerances down to a quarter-inch for certain defects on specific carcass weight classes. The standard is engineered.</p>
+  <p>What happens on the line is the standard, applied by humans, under load. That is where the drift lives.</p>
+
+  <h3>The gap: what the line actually produces</h3>
+  <p>The research on inter-grader reliability in visual food inspection is long-established. When two trained graders inspect the same carcasses independently, their call-level agreement is meaningfully below perfect, and the gap widens for defects that sit near tolerance thresholds. Borderline calls are exactly where agreement breaks down. The clean birds are easy. The defect-heavy birds are easy. The gray zone is where the variance concentrates.</p>
+  <p>A single grader, re-graded against their own earlier calls on the same birds, shows a similar pattern. Intra-grader agreement is high at the extremes and weakens at the borderlines. This is not a commentary on grader skill. It is a commentary on human visual inspection as a measurement instrument, and the instrument has noise.</p>
+  <p>Three forces make the noise worse on a real production line.</p>
+  <p><strong>End-of-shift fatigue.</strong> Visual inspection is cognitively expensive. Sustained attention degrades over time. By hour six of an eight-hour shift, the call quality on borderline birds is measurably different from hour one. The direction of the drift is not random, fatigued graders become faster and more conservative, which means more defensive down-grades.</p>
+  <p><strong>Visual adaptation.</strong> Your eye calibrates to the recent population it has seen. A grader who spent the last thirty minutes looking at clean flocks will read a moderately bruised bird as worse than it is. A grader who just saw a run of heavy defects will read a mildly bruised bird as better than it is. Neither grader is wrong about the bird in isolation. Both are affected by the comparison window. This is well-documented in psychophysics and it does not go away with training.</p>
+  <p><strong>Social conformity.</strong> Graders working shoulder-to-shoulder unconsciously sync their call patterns. When the grader next to you has called three B's in a row, the odds your borderline call drifts toward B go up. This is not a character flaw. It is how social species process ambiguous evidence. It is also why two graders who have worked the same line for six months will look more like each other than like a grader in another plant, and that cross-plant variance shows up in audits.</p>
+  <p>Add these up and the result is predictable. The tolerances on paper are fixed. The tolerances in practice are a distribution, one that shifts with fatigue, population mix, and who's standing next to whom.</p>
+
+  <h3>The framing that matters: consistency, not accuracy</h3>
+  <p>Here is the single most important sentence in this document.</p>
+  <blockquote><strong>Vision doesn't do it better. It does it the same way every time.</strong></blockquote>
+  <p>That framing is worth sitting with. The claim is not that a vision system has better judgment than a trained human grader. On the hardest, most ambiguous birds, a human grader is very possibly better. The claim is that a vision system is a <em>consistency layer</em>. Same lighting interpretation at hour one and hour six. Same tolerance thresholds on Tuesday and Friday. No sync-up with the grader next to it. No comparison window drift based on the last thirty minutes of birds. The same bird, presented the same way, produces the same call, every time.</p>
+  <p>This is why computer vision in grading is not a replacement for human judgment. It is a replacement for <em>inconsistency</em>. The humans you have are good. The environment you have put them in is what's drifting. A vision layer runs the borderline calls against the same thresholds every time, and your human graders move up to what they should have been doing all along: exception review, quality escalation, and the birds where the standard genuinely needs interpretation.</p>
+  <p>Any QA director defending this decision to a plant manager or a VP of operations should use exactly that framing. You are not buying a smarter grader. You are buying a consistency layer on top of USDA standards, engineered to eliminate the variance the grade standard already assumes should not exist.</p>
+
+  <h3>The three-column comparison</h3>
+  <table>
+    <thead><tr><th>&nbsp;</th><th>USDA standard</th><th>The line today</th><th>Consistent vision layer</th></tr></thead>
+    <tbody>
+      <tr><td>Bruise threshold</td><td>Explicit, quarter-inch tolerances by carcass weight</td><td>Applied by graders under fatigue and social-conformity drift</td><td>Same threshold, every bird, every shift</td></tr>
+      <tr><td>Borderline calls</td><td>Should be neutral, grade reflects the evidence</td><td>Defensive, uncertainty defaults to down-grade</td><td>Neutral by construction</td></tr>
+      <tr><td>Hour-six vs hour-one</td><td>Should be identical</td><td>Measurably different</td><td>Identical</td></tr>
+      <tr><td>Cross-plant consistency</td><td>Should be identical across all USDA plants</td><td>Observable variance between plants and shifts</td><td>Identical across lines when calibrated</td></tr>
+    </tbody>
+  </table>
+
+  <h3>What this means for your plant</h3>
+  <p>Two practical points.</p>
+  <p>First, the variance is already in your numbers. If you have inter-grader audits, you already have some version of this data, and if you don't, the variance is hiding in your mix. The leak hits the A/B ratio leaving your dock, not the standard cost of an individual bird. That is why it is invisible on a conventional P&amp;L and why sampling audits miss it: they tell you about agreement on a small sample, not about the mix impact across the whole run. (We worked through that math, plant-by-plant, in <a class="inline" href="#borderline-birds">section 01</a>.)</p>
+  <p>Second, "consistency" is measurable and auditable. If you adopt a vision layer, the right validation protocol is not "does it agree with our best grader on ninety birds." It is "does it produce the same call on the same bird every time, across shifts, across lighting, across populations." That is a different question, and it is the question the USDA grade standards assume the answer to already is <em>yes</em>.</p>
+  <p>The validation framework we use to benchmark vision grading against human graders, the design, the population selection, the agreement statistics, and how to handle the borderline-zone analysis, is in <a class="inline" href="#methodology">section 04</a>.</p>
+</section>
+
+<!-- ════════ 03 · ONE-DAY INSTALL ════════ -->
+<section class="chapter" id="one-day-install">
+  <p class="chapter-tag"><span class="num">03</span>How it installs</p>
+  <h2>No crew on your line: how ceiling-mounted vision grading actually goes in</h2>
+  <p class="chapter-dek">It ships as a package, your own approved installer mounts it in the ceiling, the software is set up from the back room, and the system learns your line over two to three weeks in shadow mode before it ever takes the grade call.</p>
+
+  <p>When vision grading comes up, two worries surface inside the first five minutes: <em>"We can't shut the line down,"</em> and <em>"We don't want an outside crew in our processing area."</em> Both are fair, and both are answered by how the system is built, not by a promise. Here's exactly how it goes in, who does what, and the part most people won't tell you straight: the system doesn't grade your birds perfectly on day one. It learns your line over two to three weeks. That's a feature, and below is why.</p>
+
+  <h3>Why the ceiling mount is the whole argument</h3>
+  <p>Traditional inline vision systems sit <em>in</em> the line. That means cutting out a section of conveyor, dropping in a vision tunnel, re-timing the encoder feeds, and re-sequencing the PLC to account for a new station. Weeks of planning. Commissioning windows. Usually a partial line shutdown in the middle of it.</p>
+  <p>A ceiling mount doesn't touch the line. The unit sits above the existing conveyor, looking down, with a six-camera array that captures the bird from every side. Nothing on the line changes, not the conveyor, not the shackles, not the encoder, not the speed. The system observes the birds you're already moving and publishes a grade call in 185 milliseconds. Faster than your line speed needs, which is the point: no pacing impact, no re-timing, no sync work. Because it never sits in the line, there's no line shutdown to put it in.</p>
+
+  <h3>Who actually installs it</h3>
+  <p>This is the part worth being precise about, because it's a question every plant engineer asks.</p>
+  <p>The system ships to you as a packaged unit. <strong>Your plant's own approved installer mounts it in the ceiling</strong>, above the grading station, on your schedule. We don't send a crew onto your processing floor, the people rigging hardware in your food-safety zone are the same qualified people who already work in it. For most plants that's the whole ballgame: no outside bodies in the process area, no vendor coordination on the kill floor, no one to escort and supervise.</p>
+  <p>Once the unit is mounted, our team sets up the software <strong>from your back room</strong>, off the floor. The system publishes grade class and a confidence score to your existing PLC over two tags. No control-loop changes; your PLC treats it as one more input, like any other sensor feed.</p>
+
+  <h3>The two-to-three week learning ramp, in shadow mode</h3>
+  <p>Here is the part nobody markets honestly, so here it is straight: the system does not grade your birds correctly on the first shift. It has to learn <em>your</em> line, your bird mix, your lighting, your shackle geometry, the way your specific population presents. That takes about two to three weeks.</p>
+  <p>The entire time it's learning, it runs in <strong>shadow mode</strong>. The system grades every bird; your human graders keep making the binding calls. Nothing about your grade of record changes. You watch the agreement between the system and your graders climb, in real time, on your own birds, and you also see how much variance was already in the line (the same problem covered in <a class="inline" href="#grader-drift">section 02</a>). Shadow mode makes it visible without anyone having to argue about it.</p>
+  <p>Your QA director signs off on <em>their</em> timeline, not ours. When the system is matched to your line and QA is satisfied, you flip it from shadow to binding. The vision call becomes the grade of record, and your human graders move up to exception review and quality escalation. From that point, the borderline call stops drifting.</p>
+
+  <table>
+    <thead><tr><th>Stage</th><th>What happens</th><th>Who</th></tr></thead>
+    <tbody>
+      <tr><td>Ship</td><td>Unit arrives as a packaged, ceiling-mount system.</td><td>Singh Automation</td></tr>
+      <tr><td>Mount</td><td>Mounted in the ceiling above the grading station. No line modification.</td><td>Your approved installer</td></tr>
+      <tr><td>Software</td><td>Configured from the back room; PLC handshake over two tags.</td><td>Singh, off the floor</td></tr>
+      <tr><td>Weeks 1–3</td><td>Shadow mode. System grades every bird; humans stay binding. Agreement climbs.</td><td>Your QA + the system</td></tr>
+      <tr><td>Go live</td><td>QA signs off; handshake flips to binding. Humans move to exception review.</td><td>Your call</td></tr>
+    </tbody>
+  </table>
+
+  <h3>One number worth remembering</h3>
+  <p><strong>185 milliseconds.</strong> Time from bird entering frame to grade call published. Most mid-tier plants run 150–180 birds per minute, which is roughly 330–400 milliseconds per bird. The call comes back in about half that window. The decision lands before the bird reaches the sort gate, which is why a ceiling mount works as a retrofit. The system adds no latency the line can feel.</p>
+
+  <h3>What this means for your floor</h3>
+  <p>No line shutdown, because the system never sits in the line. No outside crew in your process area, because your own installer does the mount. No risk during the ramp, because your humans stay the binding graders until QA is satisfied. And at the end of it, a consistency layer that grades the same way every shift, the thing the standard already assumes you have.</p>
+  <p>The honest list of what actually takes time isn't rigging or PLC work. It's the two-to-three weeks the system needs to learn your line. That's not a delay to hide; it's the period that earns your QA director's signature.</p>
+  <p>If your team is bought on the concept but stuck on install risk, the right next step is <a class="inline" href="#site-readiness">the site-readiness checklist</a> — ceiling clearance, network drop, PLC I/O, lighting, and what your installer needs ready before the unit arrives.</p>
+</section>
+
+<!-- ════════ 04 · METHODOLOGY ════════ -->
+<section class="chapter" id="methodology">
+  <p class="chapter-tag"><span class="num">04</span>The methodology</p>
+  <h2>Benchmarking vision grading against human graders</h2>
+  <p class="chapter-dek">The validation methodology we use when benchmarking a consistent vision grading layer against trained human graders in a working USDA-inspected plant. Written for the QA director who needs to defend the adoption decision internally.</p>
+
+  <h3>1. Framing: the question we're trying to answer</h3>
+  <p>There are two different validation questions you can ask of a vision grading system. Most vendors answer the first. We think the second one is what matters.</p>
+  <div class="qbox"><p><span class="qtag">Question A</span><strong>Replacement framing.</strong> "Does the vision system make the same call as my best grader?"</p></div>
+  <div class="qbox"><p><span class="qtag">Question B</span><strong>Consistency framing.</strong> "Does the vision system make the same call on the same bird, every time, regardless of shift, lighting, operator, or population mix?"</p></div>
+  <p>Question A is the wrong question for a fundamental reason: your best grader is not consistent with themselves across a shift, and is not consistent with your other graders. You cannot validate a consistency layer against an inconsistent reference. Agreement rates against a single human grader will reflect that human's drift as much as the system's accuracy, and as soon as you change graders, your validation number changes too. We have seen the validation number for the same system move by 6–9 percentage points depending on which grader it was benchmarked against.</p>
+  <p>Question B is what a consistency layer should be judged on. A consistency layer is a measurement instrument. The right validation for a measurement instrument is reproducibility against a stable ground truth.</p>
+
+  <h3>2. Ground truth construction</h3>
+  <p>We do not treat any single human grader as ground truth. We construct a composite reference in three steps.</p>
+  <p><strong>Panel adjudication.</strong> For a calibration population of 400–600 birds, five USDA-licensed graders (typically three from the plant's own team plus two external) grade each bird independently under controlled conditions: slower line speed, standardized lighting, no time pressure. Each grader's call is logged. This is not a production-speed exercise. The intent is to give the best possible human judgment the best possible operating environment.</p>
+  <p><strong>Majority + escalation.</strong> A bird is assigned a reference grade by simple majority (3 of 5 agree). Birds with no majority, typically the true edge cases, are escalated to a sixth review by a senior USDA-licensed grader and adjudicated against the FSIS Poultry Grading Manual tolerances directly. Those adjudicated birds are marked in the dataset as <em>adjudicated</em> and tracked separately.</p>
+  <p><strong>Borderline-zone flagging.</strong> We explicitly mark birds where the original five-grader panel showed fewer than 4 of 5 in agreement. These are the "borderline zone" birds. They are the birds where human inspection at line speed is known to drift, and they are the population where a consistency layer has to do its work. Overall agreement statistics are reported both with and without the borderline zone, because the borderline zone is where the economic value lives.</p>
+
+  <h3>3. The three metrics we report</h3>
+  <p><strong>Agreement with ground truth (accuracy).</strong> Per-bird agreement between the vision system's call and the panel-adjudicated reference grade. Reported for: all birds, non-borderline only, borderline-zone only, and adjudicated birds as a separate integrity check. This maps to the "does it grade correctly" question, but we consider it the <em>second</em> most important metric. For a consistency layer, agreement is table stakes. Reproducibility is the load-bearing claim.</p>
+  <p><strong>Test-retest reproducibility (consistency, the load-bearing metric).</strong> The same bird is presented to the system multiple times, across varied conditions: different time of day, different shift lighting, different population context (before and after a heavy-defect run). We measure the rate at which the system produces the <em>same call</em> on the same bird across presentations.</p>
+  <p>The comparison number is intra-grader reproducibility: the rate at which an individual human grader agrees with their own earlier calls when re-shown the same birds four hours later. Published literature on poultry and food-product visual inspection consistently finds intra-grader reproducibility below 100%, and it degrades further under fatigue and visual-adaptation conditions.</p>
+  <p>Our target for a vision layer is reproducibility at or above 99% across conditions. If a vision system's reproducibility is not meaningfully higher than a fatigued human grader's, there is no consistency value and the system is not worth installing. This is the metric that, more than any other, separates a real consistency layer from a system that just happens to get a high agreement score on a friendly benchmark.</p>
+  <p><strong>Cross-condition drift (robustness).</strong> We test the system across deliberately varied conditions to check whether its calls drift the way a human grader's do:</p>
+  <ul>
+    <li><strong>Lighting variation.</strong> Production lighting at nominal, +15%, and -15% intensity.</li>
+    <li><strong>Shift fatigue proxy.</strong> Data collected at hour 1 vs. hour 6 of a shift, on the same system. Human graders drift measurably across a shift; a vision system should not.</li>
+    <li><strong>Population mix.</strong> Birds grouped so the system sees 30 minutes of heavy-defect birds, then is tested on a run of borderline birds. Human visual adaptation makes graders call these borderlines more leniently after the defect window. A vision system should not exhibit that drift.</li>
+    <li><strong>Operator swap.</strong> Same system, same line, different PLC operator. The system should be indifferent to operator identity.</li>
+  </ul>
+  <p>Cross-condition drift is reported as the maximum deviation in call-rate on a held-out population across conditions. A drift of zero is the ideal; anything more than a few tenths of a percentage point is a finding worth discussing.</p>
+
+  <h3>4. What we do <em>not</em> claim</h3>
+  <ol>
+    <li><strong>We do not claim the system makes better judgment calls than a skilled human grader on truly ambiguous birds.</strong> On a bird with a novel defect pattern, or a finding the FSIS manual does not anticipate cleanly, a trained human exercising discretion is very likely better. The value we claim is consistency on the calls the standard <em>does</em> define cleanly, not superhuman judgment on the ones it doesn't.</li>
+    <li><strong>We do not claim the validation population is representative of all broiler processors nationally.</strong> Our benchmarking has been conducted across multiple mid-tier US plants, but grade distributions, defect profiles, and line conditions vary plant by plant. The validation protocol is designed to run on <em>your</em> plant, against <em>your</em> population. We do not ship a one-size calibration.</li>
+    <li><strong>We do not claim zero error.</strong> Any measurement instrument has error. The claim is that the error is bounded, reproducible, and independent of the drift sources that affect human inspection, not that it doesn't exist.</li>
+  </ol>
+
+  <h3>5. Validation protocol for a pilot</h3>
+  <ol>
+    <li><strong>Pre-install site survey</strong> (ceiling, network, PLC I/O, lighting). No binding commitment yet. See <a class="inline" href="#site-readiness">section 05</a> for the survey companion.</li>
+    <li><strong>Install</strong> (ceiling mount, PLC handshake, calibration). Per <a class="inline" href="#one-day-install">section 03</a>.</li>
+    <li><strong>Shadow mode, weeks 1–2.</strong> The system grades every bird in parallel to your human graders. Calls are logged, not binding. Your QA team can pull any bird's data and compare.</li>
+    <li><strong>Agreement + reproducibility report.</strong> At the end of week 2 we deliver a report against all three metrics on your actual line, against a ground truth constructed from your own QA team's panel adjudication.</li>
+    <li><strong>Binding decision.</strong> If the report hits the thresholds your QA director has set, we flip to binding. If it does not, shadow mode continues or the system is removed. The pilot is reversible by design.</li>
+  </ol>
+
+  <h3>6. What to ask any vision grading vendor</h3>
+  <p>Whether or not we are the vendor you select, this short list is what we think any plant should ask of any vision grading benchmark:</p>
+  <ul>
+    <li>Is ground truth a single grader, or a panel-adjudicated composite?</li>
+    <li>Are agreement statistics reported separately on borderline-zone birds?</li>
+    <li>Is test-retest reproducibility reported at all? If yes, what is the comparison population?</li>
+    <li>How is cross-condition drift measured?</li>
+    <li>Is the benchmark run on the vendor's reference line or on the customer's actual production line?</li>
+  </ul>
+  <p>If a vendor's benchmark answers fewer than three of these, the benchmark is marketing, not methodology.</p>
+</section>
+
+<!-- ════════ 05 · SITE-READINESS CHECKLIST ════════ -->
+<section class="chapter" id="site-readiness">
+  <p class="chapter-tag"><span class="num">05</span>Survey companion</p>
+  <h2>Site-readiness checklist</h2>
+  <p class="chapter-dek">The same checklist a Singh Automation field engineer walks during a pre-install site survey. Six sections, walk-the-floor checks (tick as you go), and what we measure on survey day. Filled out in advance, the site survey becomes a 90-minute confirmation walk.</p>
+
+  <h3>1. Ceiling and overhead access</h3>
+  <p class="ref-tag">Walk the floor</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c1a"><label for="c1a">Ceiling directly above the grading station is unobstructed by ductwork, sprinklers, light fixtures, or catwalks for at least a 6-foot diameter footprint</label></li>
+    <li><input type="checkbox" id="c1b"><label for="c1b">Clear ceiling height above the shackle line is at least 11 feet</label></li>
+    <li><input type="checkbox" id="c1c"><label for="c1c">Overhead structure (roof joist, beam, or rated ceiling) can support a 60 lb mounting frame</label></li>
+    <li><input type="checkbox" id="c1d"><label for="c1d">Clear path for a two-person crew with a 10-ft step ladder or rolling scaffold without stopping the line</label></li>
+    <li><input type="checkbox" id="c1e"><label for="c1e">No active steam, hot-water spray, or aerosolized water pattern intersects the mount footprint</label></li>
+  </ul>
+  <p class="ref-tag">What we measure on survey day</p>
+  <ul class="measure">
+    <li>Ceiling height directly above the grading station, in inches</li>
+    <li>Distance from mount centerline to nearest obstruction in all four cardinal directions</li>
+    <li>Photograph of the ceiling above the grading station, taken from line height looking up</li>
+    <li>Beam or joist spacing near the mount point</li>
+    <li>Ambient temperature and humidity at the mount height under normal production (drives the camera-housing rating)</li>
+  </ul>
+  <div class="callout"><strong>If this is a problem.</strong> A duct run or fixed catwalk directly above the grading station is the most common cause. Solution: a side-mount frame with cameras on a horizontal arm. Adds about half a day to install and shifts go-live from Sunday afternoon to Sunday evening. Does <em>not</em> push to a second weekend. What does push: discovering the obstruction during install instead of survey. That's the entire reason this section exists.</div>
+
+  <h3>2. Network and IT</h3>
+  <p class="ref-tag">Walk the floor</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c2a"><label for="c2a">Managed ethernet drop within 100 feet of the planned mount point</label></li>
+    <li><input type="checkbox" id="c2b"><label for="c2b">Drop sits on a segment that has line-of-sight to the PLC's ethernet network (same VLAN or a configured route)</label></li>
+    <li><input type="checkbox" id="c2c"><label for="c2c">IT has been told about the new device + static IP, and a static IP has been pre-allocated</label></li>
+    <li><input type="checkbox" id="c2d"><label for="c2d">At least 100 Mbps available between the drop and the PLC during install (steady-state need is much lower)</label></li>
+    <li><input type="checkbox" id="c2e"><label for="c2e">No MAC-address allowlist would block a new device, or the process to add the device's MAC is known</label></li>
+  </ul>
+  <p class="ref-tag">What we measure on survey day</p>
+  <ul class="measure">
+    <li>Cable distance from nearest available drop to the planned mount point</li>
+    <li>Network segment / VLAN of the available drop, and whether it routes to the PLC</li>
+    <li>Round-trip latency from the mount point to the PLC over the network (must be under 5 ms)</li>
+    <li>Whether the plant uses an air-gapped OT network, and how it's bridged for vendor diagnostics</li>
+  </ul>
+  <div class="callout"><strong>If this is a problem.</strong> Drop on the wrong side of the plant adds a half-day cable pull. If IT is not aware of the install, the install can stall mid-day Saturday waiting for a static IP. <strong>Best preventive action:</strong> have plant IT on the survey call when the engineer arrives.</div>
+
+  <h3>3. Electrical and power</h3>
+  <p class="ref-tag">Walk the floor</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c3a"><label for="c3a">120 VAC, 20 A circuit available within 50 feet of the mount point with an open outlet</label></li>
+    <li><input type="checkbox" id="c3b"><label for="c3b">Or: maintenance can pull a new 20 A circuit to a junction at the mount point during install (~2-hr task)</label></li>
+    <li><input type="checkbox" id="c3c"><label for="c3c">Circuit is on a clean side of plant electrical (not shared with compressors or other high-current loads)</label></li>
+    <li><input type="checkbox" id="c3d"><label for="c3d">GFCI-protected if any portion of the run passes through a wash-down zone</label></li>
+  </ul>
+  <p class="ref-tag">What we measure on survey day</p>
+  <ul class="measure">
+    <li>Outlet location and panel-of-origin, photographed</li>
+    <li>Voltage at the outlet under load (we plug a small load and meter it)</li>
+    <li>Whether the circuit is shared with any line equipment</li>
+    <li>Cable run path from outlet to mount point</li>
+  </ul>
+  <div class="callout"><strong>If this is a problem.</strong> Almost never an install blocker. Most common issue: a circuit exists but isn't documented, and finding the right breaker takes longer than the cable run itself.</div>
+
+  <h3>4. PLC and control-system integration</h3>
+  <p class="ref-tag">Walk the floor</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c4a"><label for="c4a">PLC at the grading station identified by manufacturer, model, and firmware</label></li>
+    <li><input type="checkbox" id="c4b"><label for="c4b">PLC supports EtherNet/IP or Modbus TCP/IP (every major brand from Allen-Bradley to Siemens to Mitsubishi does)</label></li>
+    <li><input type="checkbox" id="c4c"><label for="c4c">PLC has at least two free integer tags for grade class and confidence score</label></li>
+    <li><input type="checkbox" id="c4d"><label for="c4d">Controls engineer available for a 1-hour handshake test on install Saturday</label></li>
+    <li><input type="checkbox" id="c4e"><label for="c4e">Change-management approval for adding the vision system as a new ethernet device on the OT network</label></li>
+  </ul>
+  <p class="ref-tag">What we measure on survey day</p>
+  <ul class="measure">
+    <li>PLC make, model, firmware</li>
+    <li>Network protocol and IP address of the PLC</li>
+    <li>Two tag names confirmed by the controls engineer</li>
+    <li>Existing control logic at the grading station (we want to read it, not change it)</li>
+    <li>Whether there's an HMI display we can optionally publish status to</li>
+  </ul>
+  <div class="callout"><strong>If this is a problem.</strong> Three legitimate scenarios: (1) EOL PLC without modern ethernet (we run a serial gateway, adds a day). (2) Controls engineer not available Saturday (calendar problem, resolve at survey). (3) Change-management for new OT device takes weeks (single most common <em>non-engineering</em> delay, start the ticket at survey).</div>
+
+  <h3>5. Lighting and ambient conditions</h3>
+  <p class="ref-tag">Walk the floor</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c5a"><label for="c5a">Overhead lighting at the grading station is consistent across the line and does not flicker</label></li>
+    <li><input type="checkbox" id="c5b"><label for="c5b">No direct sunlight reaches the grading station from windows or skylights at any time of day</label></li>
+    <li><input type="checkbox" id="c5c"><label for="c5c">No moving shadows fall across the grading station during a normal shift</label></li>
+    <li><input type="checkbox" id="c5d"><label for="c5d">Wash-down spray patterns do not put visible water mist into the camera viewing zone during production</label></li>
+    <li><input type="checkbox" id="c5e"><label for="c5e">Grader's view of the bird is unobstructed (same geometry the vision system needs)</label></li>
+  </ul>
+  <p class="ref-tag">What we measure on survey day</p>
+  <ul class="measure">
+    <li>Lux at the bird at line height, three points across the station, three times during the shift</li>
+    <li>Whether existing lighting switches off during clean-down (and whether the vision lighting needs to match)</li>
+    <li>Color temperature of ambient lighting, photographed with a color reference card</li>
+  </ul>
+  <div class="callout"><strong>If this is a problem.</strong> The system can supply its own dedicated lighting mounted in the same overhead frame. Adds one fixture to rigging Saturday morning, no schedule impact. We still survey ambient because the system performs better when ambient and dedicated lighting cooperate.</div>
+
+  <h3>6. Operations and people</h3>
+  <p class="ref-tag">Walk the floor</p>
+  <ul class="check">
+    <li><input type="checkbox" id="c6a"><label for="c6a">Plant manager has approved the install window in writing</label></li>
+    <li><input type="checkbox" id="c6b"><label for="c6b">QA director is the named owner of shadow-mode sign-off</label></li>
+    <li><input type="checkbox" id="c6c"><label for="c6c">At least two of the plant's regular graders scheduled for the live-cutover shift</label></li>
+    <li><input type="checkbox" id="c6d"><label for="c6d">Maintenance has a 2-hour window for the rigging step (or has confirmed Singh is rigging on its own)</label></li>
+    <li><input type="checkbox" id="c6e"><label for="c6e">Production schedule for the install weekend has been communicated to Singh Automation in advance</label></li>
+    <li><input type="checkbox" id="c6f"><label for="c6f">Install-day point of contact designated, with Singh Automation's mobile number</label></li>
+  </ul>
+  <p class="ref-tag">What we measure on survey day</p>
+  <ul class="measure">
+    <li>Names, roles, phone numbers</li>
+    <li>Production schedule for install weekend, hour by hour</li>
+    <li>Any planned events (audits, customer visits, USDA inspector changes) that intersect the install</li>
+    <li>Preferred channel for status updates during install (text thread, email, walkie-talkie)</li>
+  </ul>
+  <div class="callout"><strong>If this is a problem.</strong> This is where most weekend installs that fail, fail. Pattern is always the same: technical scope was clear, but the QA director wasn't in the room when the install was scheduled. <strong>Single best survey question:</strong> "Who signs off on shadow-mode on Sunday morning, and are they confirmed to be on site?"</div>
+
+  <h3>The three things that actually slow installs</h3>
+  <ol>
+    <li><strong>Ceiling obstruction discovered at install instead of survey.</strong> The fix is the side-mount frame; the prevention is a thorough Section 1 walk.</li>
+    <li><strong>Network drop is on the wrong side of the plant.</strong> A half-day cable pull. Prevention: a thorough Section 2 walk <em>with plant IT in the room</em>.</li>
+    <li><strong>Change-management paperwork takes weeks instead of days.</strong> Prevention: start the change ticket at survey time, with the install date on it.</li>
+  </ol>
+  <p>None of the three is a control-system, calibration, or software problem. The technology works. The schedule risk lives in the building and in the calendar.</p>
+
+  <h3>One-page summary</h3>
+  <table>
+    <thead><tr><th>Section</th><th>The single most important question</th></tr></thead>
+    <tbody>
+      <tr><td>Ceiling</td><td>Is the ceiling directly above the grading station clear for a 6-foot diameter mount footprint?</td></tr>
+      <tr><td>Network</td><td>Is there a wired ethernet drop within 100 feet, on a segment that reaches the PLC?</td></tr>
+      <tr><td>Power</td><td>Is there a 120 VAC, 20 A circuit within 50 feet of the mount point?</td></tr>
+      <tr><td>PLC</td><td>What is the PLC make, model, and protocol, and is the controls engineer available Saturday?</td></tr>
+      <tr><td>Lighting</td><td>Is the grading-station lighting consistent, with no direct sunlight or moving shadows?</td></tr>
+      <tr><td>People</td><td>Who is the named owner of the shadow-mode sign-off on Sunday, and are they confirmed on site?</td></tr>
+    </tbody>
+  </table>
+  <p>Answer all six and your install is one weekend.</p>
+</section>
+
+<p class="signoff">Happy to walk your team through any of this. Reply to whatever email this came in on, or write me directly at <a href="mailto:albert@singhautomation.com">albert@singhautomation.com</a>.<br>— Albert Mizuno, Singh Automation</p>
+
+<div class="foot">
+  <span>PucPucChicken · Singh Automation, LLC · Portage, MI</span>
+  <a class="top" href="#top">↑ Top</a>
+</div>
+
+</main>
+<a id="top" style="position:absolute;top:0"></a>
+</body>
+</html>
