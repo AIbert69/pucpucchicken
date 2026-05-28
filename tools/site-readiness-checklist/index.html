@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Site-Readiness Checklist — PucPucChicken</title>
+<meta name="description" content="What a plant needs in place before a one-day vision-grading install. The same checklist a Singh Automation field engineer walks during a pre-install site survey." />
+<link rel="canonical" href="https://pucpucchicken.com/tools/site-readiness-checklist" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Site-Readiness Checklist for Ceiling-Mounted Vision Grading" />
+<meta property="og:description" content="Ceiling, network, power, PLC, lighting, people. Six sections, walk-the-floor checks, what we measure on survey day." />
+<meta property="og:url" content="https://pucpucchicken.com/tools/site-readiness-checklist" />
+<meta property="og:site_name" content="PucPucChicken" />
+
+<style>
+  :root{
+    --ink:#15221a;
+    --ink-soft:#4a5a50;
+    --green:#1f5a3a;
+    --green-ink:#0e3220;
+    --paper:#fbfaf5;
+    --line:#e4e2d6;
+    --accent:#cf8b32;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-serif,Georgia,"Iowan Old Style",serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:720px;margin:0 auto;padding:48px 24px 96px}
+  .byline{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin:0 0 10px}
+  h1{font-size:36px;line-height:1.12;margin:0 0 8px;letter-spacing:-.015em;color:var(--ink)}
+  .sub{font-size:18px;color:var(--ink-soft);margin:0 0 8px}
+  .meta{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13.5px;color:var(--ink-soft);margin:0 0 36px}
+  h2{font-size:24px;line-height:1.22;margin:42px 0 6px;color:var(--green-ink);letter-spacing:-.005em}
+  .section-lede{font-size:17px;color:var(--ink-soft);margin:0 0 18px}
+  h3{font-size:15px;line-height:1.3;margin:24px 0 10px;color:var(--green);font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+  p{margin:0 0 16px;font-size:18px}
+  ul.check{list-style:none;padding-left:0;margin:0 0 16px}
+  ul.check li{position:relative;padding:8px 0 8px 30px;font-size:17px;border-bottom:1px dashed var(--line)}
+  ul.check li:last-child{border-bottom:0}
+  ul.check li::before{content:"";position:absolute;left:0;top:12px;width:16px;height:16px;border:1.5px solid var(--green);border-radius:3px;background:#fff}
+  ul.measure{margin:0 0 16px;padding-left:22px}
+  ul.measure li{margin:0 0 6px;font-size:17px;color:var(--ink)}
+  strong{color:var(--green-ink)}
+  hr{border:0;border-top:1px solid var(--line);margin:36px 0}
+  .callout{background:#f7f2e3;border-left:3px solid var(--accent);padding:14px 18px;font-size:17px;color:var(--ink);margin:14px 0 16px;border-radius:0 4px 4px 0}
+  .callout strong{color:var(--green-ink)}
+  table{width:100%;border-collapse:collapse;margin:20px 0;background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:15.5px}
+  th{text-align:left;padding:12px 14px;background:var(--green-ink);color:#fff;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+  td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
+  td:first-child{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-weight:600;color:var(--green-ink);white-space:nowrap}
+  .signoff{font-style:italic;color:var(--ink-soft);font-size:17px;margin-top:30px}
+  .signoff a{color:var(--green);text-decoration:none}
+  .relpost{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:14px;color:var(--ink-soft)}
+  .relpost a{color:var(--green);text-decoration:none}
+  .relpost a:hover{text-decoration:underline}
+  @media (max-width:560px){
+    .wrap{padding:36px 20px 72px}
+    h1{font-size:28px}
+    h2{font-size:20px}
+    p,ul.check li,ul.measure li{font-size:16.5px}
+    table{font-size:14px}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <article>
+    <p class="byline">PucPucChicken &middot; Field-survey companion</p>
+    <h1>Site-Readiness Checklist</h1>
+    <p class="sub">What a plant needs in place before a one-day vision-grading install.</p>
+    <p class="meta">Singh Automation &middot; Version 1.0 &middot; 2026-04-27</p>
+
+    <h2 style="margin-top:0">How to use this document</h2>
+    <p>This is the same checklist a Singh Automation field engineer walks during a pre-install site survey. It is built around one promise: ceiling-mounted vision grading installs over a single weekend, with no line modification and no PLC re-sequencing. Everything in this document exists to make that promise true on <em>your</em> plant.</p>
+
+    <p>The checklist has six sections: ceiling and overhead access, network and IT, electrical and power, PLC and control-system integration, lighting and ambient conditions, and operations and people. Each section has two parts &mdash; a <strong>walk-the-floor checklist</strong> (yes/no items the QA, ops, or maintenance lead can answer in person) and a <strong>what we measure on survey day</strong> (the spec we capture, used to size the install).</p>
+
+    <p>If you fill this out before we arrive on site, the site survey becomes a 90-minute confirmation walk instead of a half-day of investigation. That alone has saved real installs from sliding to a second weekend.</p>
+
+    <hr />
+
+    <h2>Section 1 &mdash; Ceiling and overhead access</h2>
+    <p class="section-lede">This is the section that determines whether the install is one weekend or two. Read it first.</p>
+
+    <h3>Walk-the-floor checklist</h3>
+    <ul class="check">
+      <li>The ceiling directly above the grading station is unobstructed by ductwork, sprinkler heads, light fixtures, or catwalks for at least a 6-foot diameter footprint</li>
+      <li>The clear ceiling height above the shackle line at the grading station is at least 11 feet</li>
+      <li>Existing overhead structure (roof joist, beam, or rated ceiling) can support a 60 lb mounting frame</li>
+      <li>There is a clear path for a two-person crew with a 10-ft step ladder or rolling scaffold to reach the mount point without having to stop the line</li>
+      <li>No active steam, hot-water spray, or aerosolized water pattern intersects the planned mount footprint at production conditions</li>
+    </ul>
+
+    <h3>What we measure on survey day</h3>
+    <ul class="measure">
+      <li>Ceiling height directly above the grading station, in inches</li>
+      <li>Distance from mount centerline to nearest obstruction (light, duct, sprinkler) in all four cardinal directions</li>
+      <li>Photograph of the ceiling directly above the grading station, taken from line height looking up</li>
+      <li>Beam or joist spacing in the vicinity of the mount point</li>
+      <li>Ambient temperature and humidity at the mount height under normal production conditions (this drives the camera-housing rating)</li>
+    </ul>
+
+    <div class="callout"><strong>If this section is a problem.</strong> If the ceiling is obstructed in a way that can't be worked around &mdash; usually a duct run or fixed catwalk directly above the grading station &mdash; the most common solution is a side-mount frame with the cameras on a horizontal arm rather than directly overhead. That adds about half a day to the install and shifts go-live from Sunday afternoon to Sunday evening. It does <em>not</em> push the install to a second weekend. What does push to a second weekend: discovering the obstruction during install instead of survey. That is the entire reason this section exists.</div>
+
+    <hr />
+
+    <h2>Section 2 &mdash; Network and IT</h2>
+    <p class="section-lede">The vision system needs one wired ethernet drop within reach of the mount frame. That is the entirety of the network footprint.</p>
+
+    <h3>Walk-the-floor checklist</h3>
+    <ul class="check">
+      <li>There is a managed ethernet drop within 100 feet of the planned mount point</li>
+      <li>The drop sits on a network segment that has line-of-sight to the PLC's ethernet network (same VLAN, or a configured route)</li>
+      <li>IT has been told that a new device with a static IP will be added to that segment, and a static IP has been pre-allocated</li>
+      <li>The plant network has at least 100 Mbps available between the new drop and the PLC for the duration of the install (the system's bandwidth requirement is much lower in steady state, but calibration uses more)</li>
+      <li>Plant IT has confirmed there is no MAC-address allowlist that would block a new device, or has the process to add the device's MAC</li>
+    </ul>
+
+    <h3>What we measure on survey day</h3>
+    <ul class="measure">
+      <li>Cable distance from nearest available drop to the planned mount point (informs whether we need a cable pull or can splice in)</li>
+      <li>Network segment / VLAN of the available drop, and whether it routes to the PLC</li>
+      <li>Round-trip latency from the planned mount point to the PLC over the network (must be under 5 ms)</li>
+      <li>Whether the plant uses an air-gapped OT network, and if so, how the OT network is bridged for vendor diagnostics</li>
+    </ul>
+
+    <div class="callout"><strong>If this section is a problem.</strong> If the nearest drop is on the wrong side of the plant, the install gains a half-day for cable pull. If IT is not aware the install is happening &mdash; the most common version of this problem &mdash; the install can stall mid-day Saturday waiting for a static IP. <strong>The single best preventive action</strong> is to have plant IT on the survey call when the engineer arrives. Five minutes on the survey saves an entire afternoon.</div>
+
+    <hr />
+
+    <h2>Section 3 &mdash; Electrical and power</h2>
+    <p class="section-lede">The vision system pulls under 200 watts at steady state. Power is rarely the bottleneck. Documentation is.</p>
+
+    <h3>Walk-the-floor checklist</h3>
+    <ul class="check">
+      <li>There is a 120 VAC, 20 A circuit available within 50 feet of the mount point, with at least one open outlet on that circuit</li>
+      <li>Or: maintenance has confirmed they can pull a new 20 A circuit to a junction at the mount point during the install window (typically a 2-hour electrician task)</li>
+      <li>The circuit is on a clean side of the plant electrical (i.e., not sharing a panel with high-current loads like compressors that cause voltage sag)</li>
+      <li>The circuit is GFCI-protected if any portion of the run passes through a wash-down zone</li>
+    </ul>
+
+    <h3>What we measure on survey day</h3>
+    <ul class="measure">
+      <li>Outlet location and panel-of-origin, photographed</li>
+      <li>Voltage at the outlet under load (we plug a small load and meter it)</li>
+      <li>Whether the circuit is shared with any line equipment (we want it isolated from line-control circuits &mdash; the system is fault-tolerant either way, but isolation is cleaner)</li>
+      <li>Cable run path from outlet to mount point</li>
+    </ul>
+
+    <div class="callout"><strong>If this section is a problem.</strong> Almost never an install blocker. The most common issue is that a circuit exists but isn't documented, and finding the right breaker takes longer than the install of the cable run itself. If there is no usable circuit within reach, your maintenance team can pull one in parallel with the rigging step on Saturday morning &mdash; no schedule impact.</div>
+
+    <hr />
+
+    <h2>Section 4 &mdash; PLC and control-system integration</h2>
+    <p class="section-lede">This is the section the QA and controls teams care about. The good news: the system asks very little of your PLC.</p>
+
+    <h3>Walk-the-floor checklist</h3>
+    <ul class="check">
+      <li>The PLC controlling the grading station is identified by manufacturer, model, and firmware version</li>
+      <li>The PLC supports either EtherNet/IP or Modbus TCP/IP (every major brand from Allen-Bradley to Siemens to Mitsubishi does)</li>
+      <li>The PLC has at least two free integer tags available for the vision system to write to (grade class and confidence score)</li>
+      <li>The controls engineer responsible for that PLC is available for a 1-hour handshake test on Saturday afternoon during install</li>
+      <li>The plant has change-management approval for adding the vision system as a new ethernet device on the OT network</li>
+    </ul>
+
+    <h3>What we measure on survey day</h3>
+    <ul class="measure">
+      <li>PLC make, model, firmware</li>
+      <li>Network protocol (EtherNet/IP, Modbus TCP, etc.) and IP address of the PLC</li>
+      <li>Two tag names confirmed by the controls engineer that the vision system will write to</li>
+      <li>Existing control logic at the grading station (we want to read it, not change it &mdash; but we want to read it)</li>
+      <li>Whether the plant has a HMI display we can optionally publish status to, or whether status stays in the vision system's own dashboard</li>
+    </ul>
+
+    <div class="callout"><strong>If this section is a problem.</strong> Three legitimate scenarios: (1) the PLC is end-of-life and doesn't support modern ethernet &mdash; rare on mid-tier plants; if it shows up, we can run a serial gateway, but the install adds a day. (2) The controls engineer is not available on Saturday &mdash; calendar problem, not technical; resolve at survey. (3) The change-management process for adding an OT-network device takes weeks &mdash; the single most common <em>non-engineering</em> delay. Start the change-management ticket at survey, with the install date on it. The technical work is fast; the paperwork has to start in parallel.</div>
+
+    <hr />
+
+    <h2>Section 5 &mdash; Lighting and ambient conditions</h2>
+    <p class="section-lede">Vision systems are sensitive to lighting changes. Most poultry plants are already lit consistently for human graders, which is most of the work.</p>
+
+    <h3>Walk-the-floor checklist</h3>
+    <ul class="check">
+      <li>Existing overhead lighting at the grading station is consistent across the line and does not flicker (modern LED arrays and most fluorescent fixtures are fine)</li>
+      <li>No direct sunlight reaches the grading station from windows or skylights at any time of day</li>
+      <li>No moving shadows fall across the grading station from operators, ladders, or transient equipment during a normal shift</li>
+      <li>Existing wash-down spray patterns do not put visible water mist into the camera viewing zone during production</li>
+      <li>The grader's view of the bird is unobstructed (this is also what the vision system needs &mdash; same geometry)</li>
+    </ul>
+
+    <h3>What we measure on survey day</h3>
+    <ul class="measure">
+      <li>Lux at the bird at line height, taken at three points along the grading station and at three times during the shift (start of shift, mid-shift, end of shift)</li>
+      <li>Whether the existing lighting is on a circuit that gets switched off during clean-down (and whether the vision system's lighting needs the same switching)</li>
+      <li>Color temperature of the ambient lighting, photographed with a color reference card</li>
+    </ul>
+
+    <div class="callout"><strong>If this section is a problem.</strong> The vision system can supply its own dedicated lighting, mounted in the same overhead frame as the cameras. This adds one fixture to the rigging step on Saturday morning. It does not affect the schedule. The reason we still survey ambient is that the system performs better &mdash; and calibrates faster &mdash; when the ambient and dedicated lighting cooperate rather than fight.</div>
+
+    <hr />
+
+    <h2>Section 6 &mdash; Operations and people</h2>
+    <p class="section-lede">The technical install is the easy part. Most weekend installs that miss are missed because of the human side of the project.</p>
+
+    <h3>Walk-the-floor checklist</h3>
+    <ul class="check">
+      <li>The plant manager has approved the weekend install window in writing</li>
+      <li>The QA director is the named owner of the shadow-mode sign-off on Sunday morning</li>
+      <li>At least two of the plant's regular graders are scheduled for the Sunday production shift, so they're present for the live cutover</li>
+      <li>Maintenance has a 2-hour standing window on Saturday morning for the rigging step (or has confirmed Singh Automation is rigging on its own)</li>
+      <li>The plant's regular Sunday production schedule has been communicated to Singh Automation in advance, so the shadow shift slots into normal production rather than displacing it</li>
+      <li>Someone &mdash; typically the QA director or the controls engineer &mdash; has been designated as the install-day point of contact and has Singh Automation's mobile number</li>
+    </ul>
+
+    <h3>What we measure on survey day</h3>
+    <ul class="measure">
+      <li>Names and roles of the people listed above, with phone numbers</li>
+      <li>The exact production schedule for the install weekend, hour by hour</li>
+      <li>Any planned plant events (audits, customer visits, USDA inspector schedule changes) that could intersect the install</li>
+      <li>The plant's preferred channel for status updates during install (text thread, email, walkie-talkie)</li>
+    </ul>
+
+    <div class="callout"><strong>If this section is a problem.</strong> This is the section where most weekend installs that fail, fail. The pattern is always the same: the technical scope was clear, but the QA director wasn't in the room when the install was scheduled, and they're either not on site for the shadow shift or not empowered to sign off. Resolve at survey. <strong>The single best question to ask at survey is: &ldquo;Who signs off on shadow-mode on Sunday morning, and are they confirmed to be on site?&rdquo;</strong></div>
+
+    <hr />
+
+    <h2>The three things that actually slow installs</h2>
+    <p>If you have read nothing else in this document, read this. Across the installs we have done, three issues account for the vast majority of all install delays:</p>
+
+    <p><strong>1. Ceiling obstruction discovered at install instead of survey.</strong> A duct run or a sprinkler head that no one mentioned because no one was looking up. The fix is the side-mount frame; the prevention is a thorough Section 1 walk.</p>
+
+    <p><strong>2. Network drop is on the wrong side of the plant.</strong> A half-day cable pull added to a one-day install. The fix is fast; the prevention is a thorough Section 2 walk <em>with plant IT in the room</em>.</p>
+
+    <p><strong>3. Change-management paperwork for adding a new OT device takes weeks instead of days.</strong> The technical install is fast; the IT/security paperwork has to start in parallel. The fix is administrative; the prevention is starting the change ticket at survey time, with the install date on it.</p>
+
+    <p>Note that <strong>none of the three is a control-system problem, a calibration problem, or a software problem</strong>. The technology works. The schedule risk lives in the building and in the calendar.</p>
+
+    <hr />
+
+    <h2>Tear-out one-page summary</h2>
+    <p>Print this page and bring it to your next maintenance meeting.</p>
+
+    <table>
+      <thead><tr><th>Section</th><th>The single most important question</th></tr></thead>
+      <tbody>
+        <tr><td>Ceiling</td><td>Is the ceiling directly above the grading station clear for a 6-foot diameter mount footprint?</td></tr>
+        <tr><td>Network</td><td>Is there a wired ethernet drop within 100 feet of the mount point, on a segment that reaches the PLC?</td></tr>
+        <tr><td>Power</td><td>Is there a 120 VAC, 20 A circuit within 50 feet of the mount point?</td></tr>
+        <tr><td>PLC</td><td>What is the PLC make, model, and protocol &mdash; and is the controls engineer available Saturday afternoon?</td></tr>
+        <tr><td>Lighting</td><td>Is the grading-station lighting consistent, with no direct sunlight or moving shadows?</td></tr>
+        <tr><td>People</td><td>Who is the named owner of the shadow-mode sign-off on Sunday, and are they confirmed on site?</td></tr>
+      </tbody>
+    </table>
+
+    <p>If you can answer all six, your install is one weekend.</p>
+
+    <hr />
+
+    <h2>Next step</h2>
+    <p>If your plant clears most of this checklist and you'd like to put a survey on the calendar, reply to the email that delivered this document. We'll set a 60-minute on-site survey, with the survey output captured into this format and returned to you within a week.</p>
+
+    <p>If your plant has obvious gaps &mdash; known ceiling obstructions, an EOL PLC, a long change-management cycle &mdash; that is exactly the conversation worth having on the survey itself, before any weekend gets blocked off.</p>
+
+    <p class="signoff">&mdash; Albert Singh, Singh Automation<br><a href="mailto:albert@singhautomation.com">albert@singhautomation.com</a></p>
+
+    <div class="relpost">
+      <p><strong>Related:</strong> <a href="https://pucpucchicken.com/blog/one-day-install">The One-Day Install: What Has to Be True Before Vision Grading Goes In</a> &middot; <a href="https://pucpucchicken.com/tools/borderline-bird-calculator">The Borderline-Bird Margin Leak Calculator</a> &middot; <a href="https://pucpucchicken.com/tools/grader-drift-methodology">The Validation Methodology</a></p>
+    </div>
+  </article>
+</main>
+</body>
+</html>

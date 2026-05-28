@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Borderline Bird Calculator — PucPucChicken</title>
+<meta name="description" content="Calculate the annual margin leak from borderline birds graded down to B-grade on your plant. Singh Automation." />
+<style>
+  :root{
+    --ink:#15221a;
+    --ink-soft:#4a5a50;
+    --green:#1f5a3a;
+    --green-ink:#0e3220;
+    --paper:#fbfaf5;
+    --line:#e4e2d6;
+    --accent:#cf8b32;
+    --flag:#b34a2c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-serif,Georgia,"Iowan Old Style",serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:48px 24px 96px}
+  h1{font-size:34px;line-height:1.15;margin:0 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);font-size:15px;margin:0 0 28px}
+  .byline{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin:0 0 8px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:28px;margin-bottom:24px;box-shadow:0 1px 0 rgba(21,34,26,.03)}
+  .card h2{font-size:20px;margin:0 0 14px;color:var(--green-ink)}
+  .row{display:grid;grid-template-columns:1fr 160px;gap:14px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:none}
+  label{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:14px}
+  label .hint{display:block;color:var(--ink-soft);font-size:12px;font-weight:400;margin-top:3px}
+  input[type="number"]{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:4px;background:#fff;text-align:right}
+  input[type="number"]:focus{outline:2px solid var(--green);border-color:var(--green)}
+  .result{background:var(--green-ink);color:#f4eed8;border-radius:6px;padding:28px;margin-top:8px}
+  .result .lbl{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#c8d6ce;margin-bottom:8px}
+  .result .big{font-size:46px;line-height:1.05;letter-spacing:-.02em;font-weight:600}
+  .result .weekly{font-size:15px;color:#c8d6ce;margin-top:10px}
+  .formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:#f2efe4;border:1px solid var(--line);border-radius:4px;padding:14px;color:var(--ink);margin:10px 0 0;overflow-x:auto;white-space:nowrap}
+  .capture{background:#fff;border:1px solid var(--line);border-radius:6px;padding:28px}
+  .capture h3{margin:0 0 6px;font-size:18px}
+  .capture p{margin:0 0 16px;color:var(--ink-soft);font-size:14px}
+  .capture .fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+  .capture input[type="text"],.capture input[type="email"]{width:100%;font:inherit;font-size:15px;padding:11px 12px;border:1px solid var(--line);border-radius:4px;background:#fff}
+  .btn{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:14px;letter-spacing:.04em;text-transform:uppercase;background:var(--green);color:#fff;border:0;border-radius:4px;padding:12px 20px;cursor:pointer}
+  .btn:hover{background:var(--green-ink)}
+  .foot{color:var(--ink-soft);font-size:12px;margin-top:26px;text-align:center}
+  .note{background:#f7f2e3;border-left:3px solid var(--accent);padding:12px 14px;font-size:13.5px;color:var(--ink-soft);margin:14px 0 0}
+  @media (max-width:560px){
+    .row{grid-template-columns:1fr;gap:6px}
+    input[type="number"]{text-align:left}
+    .capture .fields{grid-template-columns:1fr}
+    h1{font-size:26px}
+    .result .big{font-size:34px}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <p class="byline">PucPucChicken · Calculator</p>
+  <h1>The Borderline-Bird Margin Leak Calculator</h1>
+  <p class="sub">Run the annual number on your own line. Plug in what you know. Defaults are conservative for a mid-tier US processor.</p>
+
+  <section class="card" aria-labelledby="inputs">
+    <h2 id="inputs">Your plant</h2>
+    <div class="row">
+      <label for="birds">Weekly bird count
+        <span class="hint">Birds processed per week on the grading line.</span>
+      </label>
+      <input type="number" id="birds" value="250000" min="0" step="1000" />
+    </div>
+    <div class="row">
+      <label for="borderline">Borderline rate (%)
+        <span class="hint">% of birds that are close-call A-or-B decisions. Typical: 3–5%.</span>
+      </label>
+      <input type="number" id="borderline" value="4" min="0" max="100" step="0.1" />
+    </div>
+    <div class="row">
+      <label for="defaultdown">Default-down rate (%)
+        <span class="hint">Of the borderline birds, % graded B. Typical under defensive grading: 75–85%.</span>
+      </label>
+      <input type="number" id="defaultdown" value="80" min="0" max="100" step="1" />
+    </div>
+    <div class="row">
+      <label for="recoverable">Recoverable share (%)
+        <span class="hint">Of down-graded borderlines, % that would be A under a consistent grader. Conservative: 40–60%.</span>
+      </label>
+      <input type="number" id="recoverable" value="50" min="0" max="100" step="1" />
+    </div>
+    <div class="row">
+      <label for="delta">A-to-B price delta ($/bird)
+        <span class="hint">Wholesale price difference per bird. Typical: $0.50–$0.90.</span>
+      </label>
+      <input type="number" id="delta" value="0.70" min="0" step="0.01" />
+    </div>
+    <div class="row">
+      <label for="weeks">Production weeks per year
+        <span class="hint">Most plants: 50. Heavy holiday shutdown: 48.</span>
+      </label>
+      <input type="number" id="weeks" value="50" min="0" max="53" step="1" />
+    </div>
+  </section>
+
+  <section class="result" aria-live="polite">
+    <div class="lbl">Estimated annual leak</div>
+    <div class="big" id="annual">$140,000</div>
+    <div class="weekly" id="weekly">That's about <strong>$2,800</strong> per production week, or <strong>4,000</strong> recoverable birds a week.</div>
+    <div class="formula" id="formula">birds × borderline% × default-down% × recoverable% × A–B delta × weeks = annual leak</div>
+    <p class="note"><strong>What this number means.</strong> It's the gross margin missed because borderline birds default to B under defensive human grading. Consistency lives in the <em>recoverable share</em> input — that's the lever a vision layer moves.</p>
+  </section>
+
+  <section class="capture" aria-labelledby="email">
+    <h3 id="email">Want the full worksheet + how to audit your own numbers?</h3>
+    <p>Enter your email and we'll send the spreadsheet, plus a one-page worksheet your QA director can run on live data.</p>
+    <form id="captureForm" novalidate>
+      <div class="fields">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="text" name="company" placeholder="Plant / company" />
+      </div>
+      <div class="fields">
+        <input type="email" name="email" placeholder="Work email" required />
+        <input type="text" name="role" placeholder="Role (plant mgr, QA, etc.)" />
+      </div>
+      <button type="submit" class="btn">Send me the worksheet</button>
+      <p id="formMsg" style="margin:12px 0 0;font-size:13.5px;color:var(--green-ink);display:none"></p>
+    </form>
+  </section>
+
+  <p class="foot">Singh Automation · PucPucChicken · Operator to operator.</p>
+</main>
+
+<script>
+(function(){
+  const ids = ["birds","borderline","defaultdown","recoverable","delta","weeks"];
+  const fmt = new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
+  const fmtN = new Intl.NumberFormat("en-US",{maximumFractionDigits:0});
+  function compute(){
+    const v = Object.fromEntries(ids.map(id => [id, parseFloat(document.getElementById(id).value) || 0]));
+    const recoverablePerYear = v.birds * (v.borderline/100) * (v.defaultdown/100) * (v.recoverable/100) * v.weeks;
+    const annual = recoverablePerYear * v.delta;
+    const perWeek = annual / (v.weeks || 1);
+    const birdsPerWeek = recoverablePerYear / (v.weeks || 1);
+    document.getElementById("annual").textContent = fmt.format(annual);
+    document.getElementById("weekly").innerHTML =
+      "That's about <strong>" + fmt.format(perWeek) + "</strong> per production week, or <strong>" +
+      fmtN.format(birdsPerWeek) + "</strong> recoverable birds a week.";
+    document.getElementById("formula").textContent =
+      fmtN.format(v.birds) + " × " + v.borderline + "% × " + v.defaultdown + "% × " +
+      v.recoverable + "% × $" + v.delta.toFixed(2) + " × " + v.weeks + " = " + fmt.format(annual);
+  }
+  ids.forEach(id => document.getElementById(id).addEventListener("input", compute));
+  compute();
+
+  // Email capture — POST to your form backend (Formspree, Netlify Forms, etc.)
+  // Replace "/api/lead-capture" with your actual endpoint.
+  document.getElementById("captureForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const msg = document.getElementById("formMsg");
+    const data = new FormData(e.target);
+    const email = (data.get("email")||"").trim();
+    if(!email || !email.includes("@")){
+      msg.style.display = "block";
+      msg.style.color = "#b34a2c";
+      msg.textContent = "Please enter a valid work email.";
+      return;
+    }
+    // TODO: wire to actual backend. Placeholder success path:
+    msg.style.display = "block";
+    msg.style.color = "#1f5a3a";
+    msg.textContent = "Thanks — check " + email + " in the next two minutes for the worksheet.";
+    e.target.reset();
+  });
+})();
+</script>
+</body>
+</html>
