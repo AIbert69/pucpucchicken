@@ -13,37 +13,43 @@
 <meta property="og:url" content="https://pucpucchicken.com/tools/grader-drift-methodology" />
 <meta property="og:site_name" content="PucPucChicken" />
 
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#15221a;
-    --ink-soft:#4a5a50;
-    --green:#1f5a3a;
-    --green-ink:#0e3220;
-    --paper:#fbfaf5;
-    --line:#e4e2d6;
-    --accent:#cf8b32;
+    --ink:#2A2A25;
+    --slate:#4A4A42;
+    --green:#3D5A3E;
+    --green-dark:#2F4530;
+    --cream:#F5EFE0;
+    --cream-dark:#EDE6D4;
+    --cream-light:#FAF8F2;
+    --stone:#8A8778;
+    --green-light:#4A6E4B;
+    --green-pale:#E8F0E4;
+    --rule:#D8D1C2;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-serif,Georgia,"Iowan Old Style",serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  html,body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  h1,h2{font-family:"Playfair Display",Georgia,serif;font-weight:700}
   .wrap{max-width:720px;margin:0 auto;padding:48px 24px 96px}
-  .byline{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin:0 0 10px}
+  .byline{font-family:"DM Sans",system-ui,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin:0 0 10px}
   h1{font-size:36px;line-height:1.12;margin:0 0 10px;letter-spacing:-.015em;color:var(--ink)}
-  .sub{font-size:18px;color:var(--ink-soft);margin:0 0 8px}
-  .meta{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13.5px;color:var(--ink-soft);margin:0 0 36px}
-  h2{font-size:22px;line-height:1.25;margin:38px 0 12px;color:var(--green-ink);letter-spacing:-.005em}
-  h3{font-size:17px;line-height:1.3;margin:24px 0 8px;color:var(--green-ink);font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;letter-spacing:.01em}
+  .sub{font-size:18px;color:var(--slate);margin:0 0 8px}
+  .meta{font-family:"DM Sans",system-ui,sans-serif;font-size:13.5px;color:var(--slate);margin:0 0 36px}
+  h2{font-size:22px;line-height:1.25;margin:38px 0 12px;color:var(--green-dark);letter-spacing:-.005em}
+  h3{font-size:17px;line-height:1.3;margin:24px 0 8px;color:var(--green-dark);font-family:"DM Sans",system-ui,sans-serif;letter-spacing:.01em}
   p{margin:0 0 16px;font-size:18px}
   ul,ol{margin:0 0 16px;padding-left:22px}
   li{margin:0 0 8px;font-size:18px}
-  strong{color:var(--green-ink)}
-  hr{border:0;border-top:1px solid var(--line);margin:36px 0}
-  .qbox{background:#fff;border:1px solid var(--line);border-radius:6px;padding:18px 20px;margin:14px 0}
+  strong{color:var(--green-dark)}
+  hr{border:0;border-top:1px solid var(--rule);margin:36px 0}
+  .qbox{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:18px 20px;margin:14px 0}
   .qbox p{margin:0;font-size:17px}
-  .qbox .qtag{display:inline-block;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);background:#eef2ec;padding:2px 8px;border-radius:3px;margin-right:8px;vertical-align:middle}
-  .checklist{background:#fff;border:1px solid var(--line);border-radius:6px;padding:18px 22px;margin:18px 0}
+  .qbox .qtag{display:inline-block;font-family:"DM Sans",system-ui,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);background:#eef2ec;padding:2px 8px;border-radius:3px;margin-right:8px;vertical-align:middle}
+  .checklist{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:18px 22px;margin:18px 0}
   .checklist li{font-size:17px}
-  .signoff{font-style:italic;color:var(--ink-soft);font-size:17px;margin-top:30px}
-  .relpost{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:14px;color:var(--ink-soft)}
+  .signoff{font-style:italic;color:var(--slate);font-size:17px;margin-top:30px}
+  .relpost{margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);font-family:"DM Sans",system-ui,sans-serif;font-size:14px;color:var(--slate)}
   .relpost a{color:var(--green);text-decoration:none}
   .relpost a:hover{text-decoration:underline}
   @media (max-width:560px){
@@ -60,7 +66,7 @@
     <p class="byline">PucPucChicken &middot; Methodology</p>
     <h1>Benchmarking Vision Grading Against Human Graders</h1>
     <p class="sub">Singh Automation &mdash; Methodology Document, v1.0</p>
-    <p class="meta">Albert Singh, Singh Automation &middot; April 2026 &middot; Companion to <a href="https://pucpucchicken.com/blog/grader-drift" style="color:var(--green);text-decoration:none">the grader-drift post</a></p>
+    <p class="meta">Albert Mizuno, Singh Automation &middot; April 2026 &middot; Companion to <a href="https://pucpucchicken.com/blog/grader-drift" style="color:var(--green);text-decoration:none">the grader-drift post</a></p>
 
     <p><em>For circulation to QA directors, plant managers, and technical buyers.</em></p>
 
@@ -169,9 +175,9 @@
     <hr />
 
     <h2>7. About the author and the company</h2>
-    <p>Albert Singh runs Singh Automation, an automation integrator working primarily in food processing. The PucPucChicken vision grading system is the production-floor output of the last 18 months of grading-line R&amp;D. We operate with a small team, ship the install in a weekend, and publish our methodology because we believe the buying decision deserves it.</p>
+    <p>Albert Mizuno runs Singh Automation, an automation integrator working primarily in food processing. The PucPucChicken vision grading system is the production-floor output of the last 18 months of grading-line R&amp;D. We operate with a small team, ship the install in a weekend, and publish our methodology because we believe the buying decision deserves it.</p>
 
-    <p class="signoff">Questions on this document, the protocol, or the data behind it &mdash; reply to the email this came in. I answer them myself.<br>&mdash; Albert Singh, Singh Automation</p>
+    <p class="signoff">Questions on this document, the protocol, or the data behind it &mdash; reply to the email this came in. I answer them myself.<br>&mdash; Albert Mizuno, Singh Automation</p>
 
     <div class="relpost">
       <p><strong>Related:</strong> <a href="https://pucpucchicken.com/blog/grader-drift">A-Grade vs B-Grade: Where Human Graders Drift, and Why</a> &middot; <a href="https://pucpucchicken.com/tools/borderline-bird-calculator">The Borderline-Bird Margin Leak Calculator</a> &middot; <a href="https://pucpucchicken.com/tools/site-readiness-checklist">Site-Readiness Checklist</a></p>

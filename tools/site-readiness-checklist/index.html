@@ -13,44 +13,51 @@
 <meta property="og:url" content="https://pucpucchicken.com/tools/site-readiness-checklist" />
 <meta property="og:site_name" content="PucPucChicken" />
 
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#15221a;
-    --ink-soft:#4a5a50;
-    --green:#1f5a3a;
-    --green-ink:#0e3220;
-    --paper:#fbfaf5;
-    --line:#e4e2d6;
-    --accent:#cf8b32;
+    --ink:#2A2A25;
+    --slate:#4A4A42;
+    --green:#3D5A3E;
+    --green-dark:#2F4530;
+    --cream:#F5EFE0;
+    --cream-dark:#EDE6D4;
+    --cream-light:#FAF8F2;
+    --stone:#8A8778;
+    --green-light:#4A6E4B;
+    --green-pale:#E8F0E4;
+    --rule:#D8D1C2;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-serif,Georgia,"Iowan Old Style",serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  html,body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  h1,h2{font-family:"Playfair Display",Georgia,serif;font-weight:700}
   .wrap{max-width:720px;margin:0 auto;padding:48px 24px 96px}
-  .byline{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin:0 0 10px}
+  .byline{font-family:"DM Sans",system-ui,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin:0 0 10px}
   h1{font-size:36px;line-height:1.12;margin:0 0 8px;letter-spacing:-.015em;color:var(--ink)}
-  .sub{font-size:18px;color:var(--ink-soft);margin:0 0 8px}
-  .meta{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13.5px;color:var(--ink-soft);margin:0 0 36px}
-  h2{font-size:24px;line-height:1.22;margin:42px 0 6px;color:var(--green-ink);letter-spacing:-.005em}
-  .section-lede{font-size:17px;color:var(--ink-soft);margin:0 0 18px}
-  h3{font-size:15px;line-height:1.3;margin:24px 0 10px;color:var(--green);font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+  .sub{font-size:18px;color:var(--slate);margin:0 0 8px}
+  .meta{font-family:"DM Sans",system-ui,sans-serif;font-size:13.5px;color:var(--slate);margin:0 0 36px}
+  h2{font-size:24px;line-height:1.22;margin:42px 0 6px;color:var(--green-dark);letter-spacing:-.005em}
+  .section-lede{font-size:17px;color:var(--slate);margin:0 0 18px}
+  h3{font-size:15px;line-height:1.3;margin:24px 0 10px;color:var(--green);font-family:"DM Sans",system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase}
   p{margin:0 0 16px;font-size:18px}
   ul.check{list-style:none;padding-left:0;margin:0 0 16px}
-  ul.check li{position:relative;padding:8px 0 8px 30px;font-size:17px;border-bottom:1px dashed var(--line)}
+  ul.check li{position:relative;padding:8px 0 8px 30px;font-size:17px;border-bottom:1px dashed var(--rule)}
   ul.check li:last-child{border-bottom:0}
   ul.check li::before{content:"";position:absolute;left:0;top:12px;width:16px;height:16px;border:1.5px solid var(--green);border-radius:3px;background:#fff}
   ul.measure{margin:0 0 16px;padding-left:22px}
   ul.measure li{margin:0 0 6px;font-size:17px;color:var(--ink)}
-  strong{color:var(--green-ink)}
-  hr{border:0;border-top:1px solid var(--line);margin:36px 0}
-  .callout{background:#f7f2e3;border-left:3px solid var(--accent);padding:14px 18px;font-size:17px;color:var(--ink);margin:14px 0 16px;border-radius:0 4px 4px 0}
-  .callout strong{color:var(--green-ink)}
-  table{width:100%;border-collapse:collapse;margin:20px 0;background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:15.5px}
-  th{text-align:left;padding:12px 14px;background:var(--green-ink);color:#fff;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
-  td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
-  td:first-child{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-weight:600;color:var(--green-ink);white-space:nowrap}
-  .signoff{font-style:italic;color:var(--ink-soft);font-size:17px;margin-top:30px}
+  strong{color:var(--green-dark)}
+  hr{border:0;border-top:1px solid var(--rule);margin:36px 0}
+  .callout{background:var(--cream-dark);padding:18px 22px;font-size:17px;color:var(--ink);margin:18px 0 16px;border-radius:4px}
+  .callout strong:first-of-type{display:inline-block;color:var(--green-dark);font-family:"DM Sans",system-ui,sans-serif;font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin-right:8px}
+  .callout strong{color:var(--green-dark)}
+  table{width:100%;border-collapse:collapse;margin:20px 0;background:#fff;border:1px solid var(--rule);border-radius:6px;overflow:hidden;font-size:15.5px}
+  th{text-align:left;padding:12px 14px;background:var(--green-dark);color:#fff;font-family:"DM Sans",system-ui,sans-serif;font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+  td{padding:12px 14px;border-top:1px solid var(--rule);vertical-align:top}
+  td:first-child{font-family:"DM Sans",system-ui,sans-serif;font-weight:600;color:var(--green-dark);white-space:nowrap}
+  .signoff{font-style:italic;color:var(--slate);font-size:17px;margin-top:30px}
   .signoff a{color:var(--green);text-decoration:none}
-  .relpost{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:14px;color:var(--ink-soft)}
+  .relpost{margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);font-family:"DM Sans",system-ui,sans-serif;font-size:14px;color:var(--slate)}
   .relpost a{color:var(--green);text-decoration:none}
   .relpost a:hover{text-decoration:underline}
   @media (max-width:560px){
@@ -261,7 +268,7 @@
 
     <p>If your plant has obvious gaps &mdash; known ceiling obstructions, an EOL PLC, a long change-management cycle &mdash; that is exactly the conversation worth having on the survey itself, before any weekend gets blocked off.</p>
 
-    <p class="signoff">&mdash; Albert Singh, Singh Automation<br><a href="mailto:albert@singhautomation.com">albert@singhautomation.com</a></p>
+    <p class="signoff">&mdash; Albert Mizuno, Singh Automation<br><a href="mailto:albert@singhautomation.com">albert@singhautomation.com</a></p>
 
     <div class="relpost">
       <p><strong>Related:</strong> <a href="https://pucpucchicken.com/blog/one-day-install">The One-Day Install: What Has to Be True Before Vision Grading Goes In</a> &middot; <a href="https://pucpucchicken.com/tools/borderline-bird-calculator">The Borderline-Bird Margin Leak Calculator</a> &middot; <a href="https://pucpucchicken.com/tools/grader-drift-methodology">The Validation Methodology</a></p>

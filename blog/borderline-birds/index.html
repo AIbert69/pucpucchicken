@@ -29,7 +29,7 @@
   "description": "A bird comes down the shackle line at 165 per minute. The grader has about a third of a second to call it. Here's the math on the margin leak from borderline birds defaulting to B-grade in mid-tier poultry plants.",
   "author": {
     "@type": "Person",
-    "name": "Albert Singh",
+    "name": "Albert Mizuno",
     "url": "https://pucpucchicken.com/about"
   },
   "publisher": {
@@ -49,38 +49,44 @@
 }
 </script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#15221a;
-    --ink-soft:#4a5a50;
-    --green:#1f5a3a;
-    --green-ink:#0e3220;
-    --paper:#fbfaf5;
-    --line:#e4e2d6;
-    --accent:#cf8b32;
+    --ink:#2A2A25;
+    --slate:#4A4A42;
+    --green:#3D5A3E;
+    --green-dark:#2F4530;
+    --cream:#F5EFE0;
+    --cream-dark:#EDE6D4;
+    --cream-light:#FAF8F2;
+    --stone:#8A8778;
+    --green-light:#4A6E4B;
+    --green-pale:#E8F0E4;
+    --rule:#D8D1C2;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-serif,Georgia,"Iowan Old Style",serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  html,body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  h1,h2{font-family:"Playfair Display",Georgia,serif;font-weight:700}
   .wrap{max-width:680px;margin:0 auto;padding:48px 24px 96px}
-  .byline{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin:0 0 10px}
+  .byline{font-family:"DM Sans",system-ui,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin:0 0 10px}
   h1{font-size:38px;line-height:1.12;margin:0 0 14px;letter-spacing:-.015em;color:var(--ink)}
-  .meta{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13.5px;color:var(--ink-soft);margin:0 0 36px}
-  h2{font-size:22px;line-height:1.25;margin:38px 0 12px;color:var(--green-ink);letter-spacing:-.005em}
+  .meta{font-family:"DM Sans",system-ui,sans-serif;font-size:13.5px;color:var(--slate);margin:0 0 36px}
+  h2{font-size:22px;line-height:1.25;margin:38px 0 12px;color:var(--green-dark);letter-spacing:-.005em}
   p{margin:0 0 16px;font-size:18px}
   ul{margin:0 0 16px;padding-left:22px}
   li{margin:0 0 6px;font-size:18px}
-  blockquote{margin:18px 0;padding:14px 18px;background:#fff;border-left:3px solid var(--accent);border-radius:3px;font-size:18px;color:var(--ink)}
-  blockquote strong{color:var(--green-ink)}
-  .figure{margin:24px 0;background:#fff;border:1px solid var(--line);border-radius:6px;padding:0;overflow:hidden}
+  blockquote{margin:24px 0;padding:22px 26px;background:var(--cream-dark);border:0;border-radius:4px;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:19px;line-height:1.4;color:var(--ink-dark,var(--ink));text-align:left}
+  blockquote strong{color:var(--green-dark)}
+  .figure{margin:24px 0;background:#fff;border:1px solid var(--rule);border-radius:6px;padding:0;overflow:hidden}
   .figure img{display:block;width:100%;height:auto}
-  .figcap{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13px;color:var(--ink-soft);padding:10px 16px;border-top:1px solid var(--line)}
-  .cta{background:var(--green-ink);color:#f4eed8;border-radius:6px;padding:28px;margin:36px 0 12px}
-  .cta h3{margin:0 0 8px;font-size:20px;color:#fff;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif}
+  .figcap{font-family:"DM Sans",system-ui,sans-serif;font-size:13px;color:var(--slate);padding:10px 16px;border-top:1px solid var(--rule)}
+  .cta{background:var(--green-dark);color:#f4eed8;border-radius:6px;padding:28px;margin:36px 0 12px}
+  .cta h3{margin:0 0 8px;font-size:20px;color:#fff;font-family:"DM Sans",system-ui,sans-serif}
   .cta p{margin:0 0 16px;font-size:16px;color:#dfe7e1}
-  .cta a.btn{display:inline-block;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:14px;letter-spacing:.04em;text-transform:uppercase;background:var(--accent);color:#15221a;text-decoration:none;border-radius:4px;padding:12px 22px;font-weight:600}
-  .cta a.btn:hover{background:#e4a651}
-  .signoff{font-style:italic;color:var(--ink-soft);font-size:17px;margin-top:30px}
-  .relpost{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:14px;color:var(--ink-soft)}
+  .cta a.btn{display:inline-block;font-family:"DM Sans",system-ui,sans-serif;font-size:14px;letter-spacing:.04em;text-transform:uppercase;background:var(--cream);color:var(--ink);text-decoration:none;border-radius:4px;padding:12px 22px;font-weight:700;transition:background .15s}
+  .cta a.btn:hover{background:#fff}
+  .signoff{font-style:italic;color:var(--slate);font-size:17px;margin-top:30px}
+  .relpost{margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);font-family:"DM Sans",system-ui,sans-serif;font-size:14px;color:var(--slate)}
   .relpost a{color:var(--green);text-decoration:none}
   .relpost a:hover{text-decoration:underline}
   @media (max-width:560px){
@@ -96,7 +102,7 @@
   <article>
     <p class="byline">PucPucChicken · Field notes</p>
     <h1>Why Your Borderline Birds Default to B-Grade (And What It's Costing You)</h1>
-    <p class="meta">Albert Singh, Singh Automation · Operator to operator · April 26, 2026 · ~5 min read</p>
+    <p class="meta">Albert Mizuno, Singh Automation · Operator to operator · April 26, 2026 · ~5 min read</p>
 
     <p>A bird comes down the shackle line at 165 per minute. The grader has about a third of a second to call it. Conformation looks clean, feathers are fine, but there's a bruise on the thigh that <em>might</em> be within tolerance &mdash; or might not. The grader calls it B, the shackle moves on, and that decision just cost you about seventy cents of margin. Now do it 15,000 more times this week. This is the margin leak nobody on your P&amp;L has line-of-sight to, and this post is the math on it.</p>
 
@@ -166,7 +172,7 @@
       <a class="btn" href="/tools/borderline-bird-calculator">Open the calculator</a>
     </div>
 
-    <p class="signoff">Happy to send more detail if useful.<br>&mdash; Albert Singh, Singh Automation</p>
+    <p class="signoff">Happy to send more detail if useful.<br>&mdash; Albert Mizuno, Singh Automation</p>
 
     <div class="relpost">
       <p><strong>Read next:</strong> <a href="https://pucpucchicken.com/blog/grader-drift">Grader Drift: How Inter-Grader Variance Quietly Reshapes Your A/B Mix</a> &middot; <a href="https://pucpucchicken.com/blog/one-day-install">The One-Day Install: What Has to Be True Before Vision Grading Goes In</a></p>

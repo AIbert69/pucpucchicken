@@ -29,7 +29,7 @@
   "description": "Ceiling-mounted vision grading ships as a packaged unit. The plant's own approved installer mounts it above the line; the software is configured from the back room; and the system learns the line over 2-3 weeks in shadow mode before it takes the binding grade call. No outside crew on the processing floor, no line re-sequencing.",
   "author": {
     "@type": "Person",
-    "name": "Albert Singh",
+    "name": "Albert Mizuno",
     "url": "https://pucpucchicken.com/about"
   },
   "publisher": {
@@ -49,39 +49,45 @@
 }
 </script>
 
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#15221a;
-    --ink-soft:#4a5a50;
-    --green:#1f5a3a;
-    --green-ink:#0e3220;
-    --paper:#fbfaf5;
-    --line:#e4e2d6;
-    --accent:#cf8b32;
+    --ink:#2A2A25;
+    --slate:#4A4A42;
+    --green:#3D5A3E;
+    --green-dark:#2F4530;
+    --cream:#F5EFE0;
+    --cream-dark:#EDE6D4;
+    --cream-light:#FAF8F2;
+    --stone:#8A8778;
+    --green-light:#4A6E4B;
+    --green-pale:#E8F0E4;
+    --rule:#D8D1C2;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-serif,Georgia,"Iowan Old Style",serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  html,body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  h1,h2{font-family:"Playfair Display",Georgia,serif;font-weight:700}
   .wrap{max-width:680px;margin:0 auto;padding:48px 24px 96px}
-  .byline{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin:0 0 10px}
+  .byline{font-family:"DM Sans",system-ui,sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin:0 0 10px}
   h1{font-size:38px;line-height:1.12;margin:0 0 14px;letter-spacing:-.015em;color:var(--ink)}
-  .meta{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:13.5px;color:var(--ink-soft);margin:0 0 36px}
-  h2{font-size:22px;line-height:1.25;margin:38px 0 12px;color:var(--green-ink);letter-spacing:-.005em}
+  .meta{font-family:"DM Sans",system-ui,sans-serif;font-size:13.5px;color:var(--slate);margin:0 0 36px}
+  h2{font-size:22px;line-height:1.25;margin:38px 0 12px;color:var(--green-dark);letter-spacing:-.005em}
   p{margin:0 0 16px;font-size:18px}
   ul{margin:0 0 16px;padding-left:22px}
   li{margin:0 0 6px;font-size:18px}
-  blockquote{margin:18px 0;padding:14px 18px;background:#fff;border-left:3px solid var(--accent);border-radius:3px;font-size:18px;color:var(--ink)}
-  blockquote strong{color:var(--green-ink)}
-  table{width:100%;border-collapse:collapse;margin:20px 0;background:#fff;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:14.5px}
-  th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left}
-  th{background:#f3f1e6;color:var(--green-ink);font-weight:600}
-  td:first-child{font-weight:600;color:var(--green-ink);white-space:nowrap}
-  .cta{background:var(--green-ink);color:#f4eed8;border-radius:6px;padding:28px;margin:36px 0 12px}
-  .cta h3{margin:0 0 8px;font-size:20px;color:#fff;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif}
+  blockquote{margin:24px 0;padding:22px 26px;background:var(--cream-dark);border:0;border-radius:4px;font-family:"Playfair Display",Georgia,serif;font-style:italic;font-size:19px;line-height:1.4;color:var(--ink-dark,var(--ink));text-align:left}
+  blockquote strong{color:var(--green-dark)}
+  table{width:100%;border-collapse:collapse;margin:20px 0;background:#fff;font-family:"DM Sans",system-ui,sans-serif;font-size:14.5px}
+  th,td{border:1px solid var(--rule);padding:10px 12px;vertical-align:top;text-align:left}
+  th{background:#f3f1e6;color:var(--green-dark);font-weight:600}
+  td:first-child{font-weight:600;color:var(--green-dark);white-space:nowrap}
+  .cta{background:var(--green-dark);color:#f4eed8;border-radius:6px;padding:28px;margin:36px 0 12px}
+  .cta h3{margin:0 0 8px;font-size:20px;color:#fff;font-family:"DM Sans",system-ui,sans-serif}
   .cta p{margin:0 0 16px;font-size:16px;color:#dfe7e1}
-  .cta a.btn{display:inline-block;font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:14px;letter-spacing:.04em;text-transform:uppercase;background:var(--accent);color:#15221a;text-decoration:none;border-radius:4px;padding:12px 22px;font-weight:600}
-  .cta a.btn:hover{background:#e4a651}
-  .signoff{font-style:italic;color:var(--ink-soft);font-size:17px;margin-top:30px}
-  .relpost{margin-top:48px;padding-top:24px;border-top:1px solid var(--line);font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:14px;color:var(--ink-soft)}
+  .cta a.btn{display:inline-block;font-family:"DM Sans",system-ui,sans-serif;font-size:14px;letter-spacing:.04em;text-transform:uppercase;background:var(--cream);color:var(--ink);text-decoration:none;border-radius:4px;padding:12px 22px;font-weight:700;transition:background .15s}
+  .cta a.btn:hover{background:#fff}
+  .signoff{font-style:italic;color:var(--slate);font-size:17px;margin-top:30px}
+  .relpost{margin-top:48px;padding-top:24px;border-top:1px solid var(--rule);font-family:"DM Sans",system-ui,sans-serif;font-size:14px;color:var(--slate)}
   .relpost a{color:var(--green);text-decoration:none}
   .relpost a:hover{text-decoration:underline}
   @media (max-width:560px){
@@ -100,7 +106,7 @@
   <article>
     <p class="byline">PucPucChicken &middot; Field notes</p>
     <h1>No Crew on Your Line: How Ceiling-Mounted Vision Grading Actually Goes In</h1>
-    <p class="meta">Albert Singh, Singh Automation &middot; Operator to operator &middot; April 27, 2026 &middot; ~5 min read</p>
+    <p class="meta">Albert Mizuno, Singh Automation &middot; Operator to operator &middot; April 27, 2026 &middot; ~5 min read</p>
 
     <p>When vision grading comes up, two worries surface inside the first five minutes: <em>&ldquo;We can't shut the line down,&rdquo;</em> and <em>&ldquo;We don't want an outside crew in our processing area.&rdquo;</em> Both are fair, and both are answered by how the system is built &mdash; not by a promise. Here's exactly how it goes in, who does what, and the part most people won't tell you straight: the system doesn't grade your birds perfectly on day one. It learns your line over two to three weeks. That's a feature, and below is why.</p>
 
@@ -183,7 +189,7 @@
       <a class="btn" href="/tools/site-readiness-checklist">Get the checklist</a>
     </div>
 
-    <p class="signoff">Happy to walk your team through the full sequence if useful.<br>&mdash; Albert Singh, Singh Automation</p>
+    <p class="signoff">Happy to walk your team through the full sequence if useful.<br>&mdash; Albert Mizuno, Singh Automation</p>
 
     <div class="relpost">
       <p><strong>Read next:</strong> <a href="https://pucpucchicken.com/blog/borderline-birds">Why Your Borderline Birds Default to B-Grade (And What It's Costing You)</a> &middot; <a href="https://pucpucchicken.com/blog/grader-drift">A-Grade vs B-Grade: Where Human Graders Drift, and Why</a></p>
