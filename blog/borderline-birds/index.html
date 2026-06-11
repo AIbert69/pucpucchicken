@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Borderline Bird Problem: Where Grading Margin Quietly Disappears | PucPucChicken</title>
+<meta name="description" content="Borderline birds defaulting to B-grade are one of the largest unmeasured yield losses in poultry processing. Here's the math, and how to find out what it costs your plant.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F6F2;
+    --ink:#1C211E;
+    --muted:#4A524D;
+    --grade-a:#1E5C3F;
+    --grade-b:#B26A1B;
+    --rule:#D9D6CC;
+    --card:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Serif 4',Georgia,serif;
+    font-size:1.125rem;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--grade-a)}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--grade-a);outline-offset:2px}
+
+  /* Nav */
+  .nav{
+    display:flex;justify-content:space-between;align-items:center;
+    max-width:1080px;margin:0 auto;padding:1.25rem 1.5rem;
+  }
+  .nav-brand{
+    font-family:'Archivo',sans-serif;font-weight:800;font-size:1.05rem;
+    letter-spacing:.02em;color:var(--ink);text-decoration:none;
+  }
+  .nav-links{display:flex;gap:1.75rem;list-style:none}
+  .nav-links a{
+    font-family:'Archivo',sans-serif;font-weight:500;font-size:.9rem;
+    color:var(--muted);text-decoration:none;transition:color .2s;
+  }
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a[aria-current="page"]{color:var(--ink);border-bottom:2px solid var(--grade-a)}
+
+  /* Article */
+  .article{max-width:720px;margin:0 auto;padding:3rem 1.5rem 5rem}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--grade-b);margin-bottom:1rem;
+  }
+  h1{
+    font-family:'Archivo',sans-serif;font-weight:800;
+    font-size:clamp(1.9rem,4.5vw,2.9rem);line-height:1.12;
+    letter-spacing:-.015em;margin-bottom:1.25rem;
+  }
+  .byline{
+    font-family:'IBM Plex Mono',monospace;font-size:.82rem;color:var(--muted);
+    padding-bottom:2rem;border-bottom:1px solid var(--rule);margin-bottom:2.5rem;
+  }
+  .article p{margin-bottom:1.4rem}
+  .article h2{
+    font-family:'Archivo',sans-serif;font-weight:700;font-size:1.45rem;
+    letter-spacing:-.01em;margin:2.75rem 0 1rem;
+  }
+  .lede{font-size:1.3rem;line-height:1.6;color:var(--ink)}
+
+  /* Signature: grade split bar */
+  .grade-split{margin:2.75rem 0;border:1px solid var(--rule);background:var(--card);padding:1.75rem 1.5rem 1.5rem}
+  .grade-split-title{
+    font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:1.1rem;
+  }
+  .split-bar{display:flex;height:54px;font-family:'Archivo',sans-serif;font-weight:700;font-size:.85rem}
+  .split-a{flex:0 0 58%;background:var(--grade-a);color:#fff;display:flex;align-items:center;padding-left:1rem}
+  .split-border{
+    flex:0 0 14%;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;
+    background:repeating-linear-gradient(45deg,var(--grade-b),var(--grade-b) 8px,#9A5A14 8px,#9A5A14 16px);
+    font-size:.72rem;line-height:1.15;
+  }
+  .split-b{flex:0 0 28%;background:#6B6F6B;color:#fff;display:flex;align-items:center;padding-left:1rem}
+  .split-caption{
+    font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--muted);
+    margin-top:.9rem;line-height:1.5;
+  }
+  .split-caption strong{color:var(--grade-b);font-weight:500}
+
+  /* Line ticket stat */
+  .ticket{
+    border:1px solid var(--rule);border-left:4px solid var(--grade-a);
+    background:var(--card);padding:1.4rem 1.5rem;margin:2.25rem 0;
+  }
+  .ticket.loss{border-left-color:var(--grade-b)}
+  .ticket-label{
+    font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;
+  }
+  .ticket-value{
+    font-family:'IBM Plex Mono',monospace;font-size:1.55rem;font-weight:500;color:var(--ink);
+  }
+  .ticket-note{font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--muted);margin-top:.35rem}
+
+  .article ul{margin:0 0 1.4rem 1.4rem}
+  .article li{margin-bottom:.5rem}
+  .footnote{font-size:.95rem;color:var(--muted);font-style:italic}
+
+  /* CTA */
+  .cta{
+    margin:3.5rem 0 0;background:var(--ink);color:var(--paper);
+    padding:2.5rem 2rem;text-align:center;
+  }
+  .cta h2{
+    font-family:'Archivo',sans-serif;font-weight:800;font-size:1.6rem;
+    margin:0 0 .75rem;letter-spacing:-.01em;
+  }
+  .cta p{color:#C9CCC7;max-width:46ch;margin:0 auto 1.5rem;font-size:1.05rem}
+  .cta-btn{
+    display:inline-block;background:var(--grade-a);color:#fff;text-decoration:none;
+    font-family:'Archivo',sans-serif;font-weight:700;font-size:1rem;
+    padding:.95rem 2.2rem;transition:background-color .2s;cursor:pointer;
+  }
+  .cta-btn:hover{background:#247049}
+
+  footer{
+    max-width:1080px;margin:0 auto;padding:2rem 1.5rem;
+    font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--muted);
+    border-top:1px solid var(--rule);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  }
+  footer a{color:var(--muted)}
+
+  @media (max-width:640px){
+    .nav{flex-direction:column;gap:.75rem}
+    .split-a{padding-left:.6rem}.split-b{padding-left:.6rem}
+    .split-bar{font-size:.72rem}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <a class="nav-brand" href="/">PUCPUCCHICKEN</a>
+  <ul class="nav-links">
+    <li><a href="/product">Product</a></li>
+    <li><a href="/blog/" aria-current="page">Blog</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="article">
+  <p class="eyebrow">Yield &amp; Grading</p>
+  <h1>The Borderline Bird Problem: Where Grading Margin Quietly Disappears</h1>
+  <p class="byline">PucPucChicken &nbsp;·&nbsp; June 2026 &nbsp;·&nbsp; 5 min read</p>
+
+  <p class="lede">Every processing plant loses money on birds that should have graded A but didn't. Not because the birds were wrong — because the call was close, the line was moving, and the safe answer was B.</p>
+
+  <h2>The call nobody talks about</h2>
+  <p>Walk any grading station and you'll see the same thing. Most birds are easy calls. A clean carcass is an A. A torn skin flap or a bad bruise is a B. The grader doesn't hesitate, and they're right.</p>
+  <p>The problem is the bird in between — the minor discoloration, the small skin tear right at the spec limit, the bird that's an A on Monday morning and a B at hour seven of a shift. When a human is making that call hundreds of times an hour, the rational move is to downgrade. Nobody gets written off for being conservative. So borderline birds default to B.</p>
+
+  <div class="grade-split" role="img" aria-label="Diagram showing the distribution of grading calls: most birds are clear A grade, a smaller share are clear B grade, and a borderline zone between them defaults to B under line pressure.">
+    <p class="grade-split-title">Where the calls actually fall</p>
+    <div class="split-bar">
+      <div class="split-a">CLEAR A</div>
+      <div class="split-border">BORDERLINE</div>
+      <div class="split-b">CLEAR B</div>
+    </div>
+    <p class="split-caption">The borderline zone is small as a share of birds — and it <strong>defaults to B</strong> under line speed and fatigue. That's the margin leak.</p>
+  </div>
+
+  <h2>Small percentage, real money</h2>
+  <p>The math is simple enough to run on a napkin. Take a plant running a typical line speed across two shifts. Even if only a low single-digit percentage of birds are borderline calls that get downgraded when they shouldn't be, you're multiplying the A-to-B price differential across thousands of birds, every day, all year.</p>
+
+  <div class="ticket loss">
+    <p class="ticket-label">Illustrative — run your own line's numbers</p>
+    <p class="ticket-value">2% misgraded × A/B differential × annual volume</p>
+    <p class="ticket-note">At commercial line speeds, this compounds into six figures per line, per year.</p>
+  </div>
+
+  <p>Every plant's numbers are different — line speed, bird size, your actual A/B price spread, your grader staffing. But the structure of the loss is the same everywhere: it's invisible. Downgraded borderline birds don't show up as waste, condemnations, or givebacks. They show up as B-grade revenue that should have been A-grade revenue, and no report flags it.</p>
+
+  <h2>Why fatigue isn't a training problem</h2>
+  <p>The usual response is to train graders harder or rotate them more often. Both help at the margins. Neither fixes the underlying issue: a human eye making subjective close calls at line speed will drift over a shift. That's not a discipline problem — it's biology. Consistency at hour one and consistency at hour seven are different things for any person on any line.</p>
+  <p>Machine vision doesn't drift. A camera grading every bird against the same spec applies the identical standard to bird one and bird one hundred thousand. The borderline bird that legitimately meets A spec gets called an A — at 7 AM, at 3 PM, on a Friday before a holiday.</p>
+
+  <h2>What it takes to find out</h2>
+  <p>You don't need to commit to anything to know what borderline birds are costing you. The honest way to evaluate a grading system is on your own product:</p>
+  <ul>
+    <li><strong>Bench test on your birds.</strong> Not a demo reel, not someone else's plant — your carcasses, graded against your spec, side by side with your current calls.</li>
+    <li><strong>No line disruption.</strong> Our system mounts to the ceiling above the line and integrates with your existing PLC over EtherNet/IP. Installation is one day. Production doesn't stop.</li>
+    <li><strong>Judge the deltas.</strong> Where the machine and your graders agree, fine. Where they disagree, those are your borderline birds — and now you can count what they're worth.</li>
+  </ul>
+  <p class="footnote">We don't ask anyone to take performance on faith. We prove it, not promise it.</p>
+
+  <div class="cta">
+    <h2>See what your borderline birds are worth</h2>
+    <p>A plant walk takes under an hour. We'll look at your line, your grading station, and your spec — and tell you straight whether the numbers are worth pursuing.</p>
+    <a class="cta-btn" href="/#contact">Request a Plant Walk</a>
+  </div>
+</main>
+
+<footer>
+  <span>© 2026 PucPucChicken · Singh Automation</span>
+  <a href="/blog/">← All posts</a>
+</footer>
+
+</body>
+</html>
