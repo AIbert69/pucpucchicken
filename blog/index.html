@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blog | PucPucChicken</title>
+<meta name="description" content="Straight talk on poultry grading, yield recovery, and machine vision on the processing line.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F6F2;
+    --ink:#1C211E;
+    --muted:#4A524D;
+    --grade-a:#1E5C3F;
+    --grade-b:#B26A1B;
+    --rule:#D9D6CC;
+    --card:#FFFFFF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:'Source Serif 4',Georgia,serif;font-size:1.1rem;line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a:focus-visible{outline:3px solid var(--grade-a);outline-offset:2px}
+
+  .nav{
+    display:flex;justify-content:space-between;align-items:center;
+    max-width:1080px;margin:0 auto;padding:1.25rem 1.5rem;
+  }
+  .nav-brand{
+    font-family:'Archivo',sans-serif;font-weight:800;font-size:1.05rem;
+    letter-spacing:.02em;color:var(--ink);text-decoration:none;
+  }
+  .nav-links{display:flex;gap:1.75rem;list-style:none}
+  .nav-links a{
+    font-family:'Archivo',sans-serif;font-weight:500;font-size:.9rem;
+    color:var(--muted);text-decoration:none;transition:color .2s;
+  }
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a[aria-current="page"]{color:var(--ink);border-bottom:2px solid var(--grade-a)}
+
+  .wrap{max-width:840px;margin:0 auto;padding:3.5rem 1.5rem 5rem}
+  .page-eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--grade-a);margin-bottom:.9rem;
+  }
+  h1{
+    font-family:'Archivo',sans-serif;font-weight:800;
+    font-size:clamp(2rem,5vw,3rem);letter-spacing:-.015em;line-height:1.1;
+    margin-bottom:1rem;
+  }
+  .page-sub{color:var(--muted);max-width:52ch;margin-bottom:3rem;font-size:1.15rem}
+
+  .post-list{list-style:none;display:flex;flex-direction:column;gap:1.5rem}
+  .post-card{
+    background:var(--card);border:1px solid var(--rule);
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .post-card:hover{border-color:var(--grade-a);box-shadow:0 2px 12px rgba(28,33,30,.08)}
+  .post-link{display:block;padding:1.9rem 2rem;text-decoration:none;color:var(--ink);cursor:pointer}
+  .post-meta{
+    font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--grade-b);margin-bottom:.6rem;
+  }
+  .post-title{
+    font-family:'Archivo',sans-serif;font-weight:700;font-size:1.4rem;
+    letter-spacing:-.01em;line-height:1.25;margin-bottom:.6rem;
+  }
+  .post-excerpt{color:var(--muted);font-size:1.02rem;margin-bottom:.9rem}
+  .post-read{
+    font-family:'Archivo',sans-serif;font-weight:700;font-size:.88rem;color:var(--grade-a);
+  }
+
+  footer{
+    max-width:1080px;margin:0 auto;padding:2rem 1.5rem;
+    font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--muted);
+    border-top:1px solid var(--rule);
+  }
+
+  @media (max-width:640px){
+    .nav{flex-direction:column;gap:.75rem}
+    .post-link{padding:1.4rem 1.25rem}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <a class="nav-brand" href="/">PUCPUCCHICKEN</a>
+  <ul class="nav-links">
+    <li><a href="/blog/" aria-current="page">Blog</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+  <p class="page-eyebrow">From the Line</p>
+  <h1>Blog</h1>
+  <p class="page-sub">Straight talk on grading, yield recovery, and machine vision in poultry processing. No hype — just what the line actually does.</p>
+
+  <ul class="post-list">
+
+    <li class="post-card">
+      <a class="post-link" href="/blog/borderline-birds">
+        <p class="post-meta">Yield &amp; Grading · June 2026 · 5 min read</p>
+        <p class="post-title">The Borderline Bird Problem: Where Grading Margin Quietly Disappears</p>
+        <p class="post-excerpt">Borderline birds defaulting to B-grade are one of the largest unmeasured yield losses in processing. Here's the structure of the loss — and how to count what it's costing your plant.</p>
+        <span class="post-read">Read the post →</span>
+      </a>
+    </li>
+
+    <!-- TEMPLATE: copy this block for each new post
+    <li class="post-card">
+      <a class="post-link" href="/blog/POST-SLUG">
+        <p class="post-meta">CATEGORY · MONTH YEAR · X min read</p>
+        <p class="post-title">POST TITLE</p>
+        <p class="post-excerpt">ONE-SENTENCE EXCERPT.</p>
+        <span class="post-read">Read the post →</span>
+      </a>
+    </li>
+    -->
+
+  </ul>
+</main>
+
+<footer>© 2026 PucPucChicken · Singh Automation</footer>
+
+</body>
+</html>
