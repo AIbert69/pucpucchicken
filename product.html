@@ -8,7 +8,7 @@
   <script>document.documentElement.classList.add("motion-ready");</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Chivo:wght@600;700;800;900&family=Libre+Caslon+Display&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300,0,0&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Chivo:wght@600;700;800;900&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,300,0,0&display=swap" rel="stylesheet">
   <style>
     :root {
       --cream: #f5f1e8;
@@ -23,7 +23,7 @@
       --muted: #54584f;
       --rule: rgba(31, 34, 28, .2);
       --rule-dark: rgba(255, 255, 255, .13);
-      --serif: "Libre Caslon Display", Georgia, serif;
+      --serif: "Chivo", "Archivo", Arial, sans-serif;
       --sans: "Archivo", Arial, sans-serif;
       --container: 1120px;
       --ease-out: cubic-bezier(.16, 1, .3, 1);
@@ -71,9 +71,9 @@
     }
     .serif {
       font-family: var(--serif);
-      font-weight: 400;
-      letter-spacing: -.035em;
-      line-height: .98;
+      font-weight: 800;
+      letter-spacing: -.065em;
+      line-height: .95;
     }
     .eyebrow, .section-label {
       margin: 0 0 var(--space-sm);
@@ -222,8 +222,8 @@
       height: 100%;
       object-fit: cover;
       object-position: center center;
-      filter: saturate(.96) contrast(1.03) brightness(1.04);
-      transform: translate3d(var(--hero-x), calc(var(--hero-y) + var(--hero-scroll)), 0) scale(1.025);
+      filter: none;
+      transform: translate3d(var(--hero-x), calc(var(--hero-y) + var(--hero-scroll)), 0) scale(1.13);
       transform-origin: 72% 50%;
       transition: filter .6s ease;
     }
@@ -233,16 +233,16 @@
       z-index: 1;
       inset: 0;
       background:
-        linear-gradient(90deg, rgba(18, 20, 17, .86) 0%, rgba(18, 20, 17, .68) 24%, rgba(18, 20, 17, .22) 50%, rgba(18, 20, 17, .03) 74%),
-        linear-gradient(0deg, rgba(18, 20, 17, .3) 0%, rgba(18, 20, 17, .05) 36%, transparent 70%);
+        linear-gradient(90deg, rgba(18, 20, 17, .74) 0%, rgba(18, 20, 17, .54) 24%, rgba(18, 20, 17, .17) 50%, rgba(18, 20, 17, .02) 74%),
+        linear-gradient(0deg, rgba(18, 20, 17, .18) 0%, rgba(18, 20, 17, .04) 36%, transparent 70%);
     }
     .hero::after {
       content: "";
       position: absolute;
       z-index: 1;
       inset: 0;
-      opacity: .38;
-      background: radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(210, 218, 193, .16), transparent 28%);
+      opacity: 0;
+      background: none;
       pointer-events: none;
       transition: background .25s ease;
     }
@@ -652,9 +652,7 @@
       border: 1px solid rgba(255, 255, 255, .13);
       border-radius: 5px;
       background: rgba(255, 255, 255, .035);
-      transform: perspective(700px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
-      transform-style: preserve-3d;
-      transition: transform .5s var(--ease-out), border-color .35s ease, box-shadow .5s var(--ease-out);
+      transition: border-color .35s ease, box-shadow .5s var(--ease-out);
     }
     .feature-card:hover {
       border-color: rgba(140, 184, 126, .4);
@@ -905,7 +903,8 @@
       margin: 0;
       padding-left: 1.5rem;
       border-left: 1px solid rgba(255, 255, 255, .12);
-      font: italic clamp(1.35rem, 2.3vw, 2rem)/1.28 var(--serif);
+      font: 700 clamp(1.2rem, 2vw, 1.7rem)/1.32 var(--serif);
+      letter-spacing: -.04em;
     }
     .data-quote small { display: block; margin-top: 1rem; color: rgba(250, 248, 241, .7); font: .75rem/1.5 var(--sans); }
 
@@ -1563,8 +1562,8 @@
     .proof-promise strong {
       display: block;
       max-width: 20rem;
-      font: 400 clamp(1.6rem, 2.4vw, 2.25rem)/1.08 var(--serif);
-      letter-spacing: -.025em;
+      font: 800 clamp(1.6rem, 2.4vw, 2.25rem)/1.08 var(--serif);
+      letter-spacing: -.055em;
     }
     .buyer-answer-list {
       margin: 0;
@@ -1580,8 +1579,8 @@
     .buyer-answer dt,
     .buyer-answer dd { margin: 0; }
     .buyer-answer dt {
-      font: 400 1.35rem/1.32 var(--serif);
-      letter-spacing: -.02em;
+      font: 800 1.25rem/1.28 var(--serif);
+      letter-spacing: -.045em;
     }
     .buyer-topic {
       display: block;
@@ -1835,6 +1834,218 @@
       background: rgba(0, 0, 0, .32);
     }
 
+    /* Deep polish: unified industrial product system */
+    :root {
+      --panel: rgba(255, 253, 247, .82);
+      --panel-solid: #fffdf7;
+      --panel-dark: rgba(9, 34, 22, .72);
+      --green-line: rgba(84, 151, 91, .42);
+      --shadow-soft: 0 24px 70px rgba(41, 36, 24, .09);
+      --shadow-dark: 0 26px 80px rgba(0, 0, 0, .28);
+    }
+    body {
+      background:
+        radial-gradient(circle at 16% 9%, rgba(63, 112, 72, .08), transparent 26rem),
+        linear-gradient(180deg, #f6f2e9 0%, #fbf8f1 38%, #f2ede3 100%);
+    }
+    .section-label,
+    .eyebrow,
+    .hero-tag,
+    .roi-label,
+    .run-kicker,
+    .buyer-topic,
+    .validation-result span {
+      letter-spacing: .14em;
+    }
+    .section-title,
+    .demo-title,
+    .hero h1 {
+      text-wrap: balance;
+    }
+    .hero {
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+      background: #11140f;
+    }
+    .hero-copy-wrap {
+      padding: clamp(1rem, 2vw, 1.5rem);
+      border-left: 1px solid rgba(145, 187, 140, .3);
+      background: linear-gradient(90deg, rgba(11, 18, 12, .22), transparent);
+    }
+    .hero-trust-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .65rem;
+      max-width: 36rem;
+      margin-top: 1.25rem;
+    }
+    .hero-trust-strip span {
+      min-height: 3.35rem;
+      display: grid;
+      align-content: center;
+      padding: .7rem .85rem;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 10px;
+      color: rgba(250, 248, 241, .86);
+      background: rgba(255, 255, 255, .055);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+    .demo-section,
+    .software-section,
+    .system-section,
+    .faq-section {
+      background:
+        radial-gradient(circle at 82% 12%, rgba(47, 107, 64, .07), transparent 24rem),
+        linear-gradient(180deg, #fbf8f1, #f4efe5);
+    }
+    .demo-shell,
+    .software-stage,
+    .run-report,
+    .system-overview,
+    .contact-form,
+    .connect-card {
+      box-shadow: var(--shadow-soft);
+    }
+    .demo-shell,
+    .software-stage,
+    .run-report,
+    .contact-form,
+    .connect-card,
+    .step-row,
+    .software-card,
+    .metric,
+    .roi-card,
+    .workbook-cell,
+    .validation-path {
+      border-radius: 14px;
+    }
+    .demo-shell {
+      border-color: rgba(31, 34, 28, .12);
+      background: rgba(255, 253, 247, .9);
+    }
+    .step-list { gap: .75rem; }
+    .step-row {
+      border: 1px solid rgba(31, 34, 28, .1);
+      background: rgba(255, 255, 255, .72);
+      box-shadow: 0 12px 30px rgba(44, 39, 28, .05);
+    }
+    .step-row:hover {
+      transform: translateY(-2px);
+      border-color: rgba(47, 107, 64, .28);
+    }
+    .video-card,
+    .software-stage { border-radius: 18px; }
+    .video-card > img,
+    .demo-video { filter: grayscale(.08) saturate(.88) brightness(.86); }
+    .play-button::after {
+      animation: none;
+      opacity: .38;
+    }
+    .plant-section,
+    .data-section,
+    .return-section,
+    .buyer-questions-section,
+    .cta-section {
+      background:
+        radial-gradient(circle at 18% 10%, rgba(145, 187, 140, .1), transparent 28rem),
+        linear-gradient(135deg, #141813 0%, #092316 58%, #05160f 100%);
+      border-block: 1px solid rgba(255, 255, 255, .1);
+    }
+    .plant-section,
+    .data-section,
+    .return-section,
+    .buyer-questions-section {
+      padding-block: clamp(4rem, 7vw, 6.75rem);
+    }
+    .feature-card,
+    .roi-card,
+    .workbook-cell,
+    .validation-panel,
+    .buyer-answer,
+    .contact-form {
+      border-color: rgba(184, 214, 170, .22);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .075), rgba(255, 255, 255, .035));
+    }
+    .feature-card {
+      border-radius: 14px;
+      box-shadow: var(--shadow-dark);
+    }
+    .feature-card:hover img { transform: none; }
+    .software-section { padding-block: clamp(4.25rem, 7vw, 7rem); }
+    .software-copy .section-title { font-size: clamp(2.6rem, 6.1vw, 6.4rem); }
+    .software-cards { gap: .85rem; }
+    .software-card {
+      padding: 1.2rem;
+      border: 1px solid rgba(31, 34, 28, .1);
+      background: rgba(255, 255, 255, .72);
+      box-shadow: 0 16px 40px rgba(44, 39, 28, .06);
+    }
+    .software-card + .software-card { border-left: 1px solid rgba(31, 34, 28, .1); }
+    .data-grid,
+    .return-grid,
+    .buyer-questions-grid,
+    .cta-row {
+      border-top: 1px solid rgba(184, 214, 170, .18);
+      border-bottom: 1px solid rgba(184, 214, 170, .18);
+    }
+    .run-report {
+      border: 1px solid rgba(184, 214, 170, .18);
+      background: rgba(255, 253, 247, .075);
+    }
+    .metric {
+      border-color: rgba(184, 214, 170, .18);
+      background: rgba(255, 255, 255, .07);
+    }
+    .metric.primary { background: linear-gradient(180deg, #245a33, #174123); }
+    .data-quote { font-style: normal; }
+    .roi-card,
+    .workbook-cell { backdrop-filter: blur(10px); }
+    .connect-card { border: 1px solid rgba(31, 34, 28, .12); }
+    .system-overview {
+      padding: clamp(1.5rem, 3vw, 2rem);
+      border: 1px solid rgba(31, 34, 28, .08);
+      border-radius: 18px;
+      background: rgba(255, 253, 247, .68);
+    }
+    .validation-panel { box-shadow: var(--shadow-dark); }
+    .buyer-answer {
+      margin-bottom: .7rem;
+      padding: 1.3rem 1.45rem;
+      border: 1px solid rgba(184, 214, 170, .16);
+      border-radius: 14px;
+    }
+    .faq-section { border-top: 1px solid rgba(31, 34, 28, .08); }
+    .faq-grid { align-items: start; }
+    .questions {
+      padding: .25rem 1.25rem;
+      border: 1px solid rgba(31, 34, 28, .08);
+      border-radius: 16px;
+      background: rgba(255, 253, 247, .72);
+      box-shadow: var(--shadow-soft);
+    }
+    .cta-trust {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .65rem;
+      margin: 1.1rem 0 1.35rem;
+    }
+    .cta-trust span {
+      padding: .7rem .75rem;
+      border: 1px solid rgba(184, 214, 170, .18);
+      border-radius: 10px;
+      color: rgba(250, 248, 241, .78);
+      background: rgba(255, 255, 255, .045);
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .contact-form { background: linear-gradient(180deg, rgba(255, 253, 247, .11), rgba(255, 253, 247, .065)); }
+
     .motion-ready .reveal:not(.hero-copy-wrap) {
       opacity: 0;
       translate: 0 16px;
@@ -1900,11 +2111,13 @@
       .hero-media { width: 100%; max-width: none; object-fit: cover; object-position: 62% center; }
       .hero::before {
         background:
-          linear-gradient(0deg, rgba(18, 20, 17, .92) 6%, rgba(18, 20, 17, .68) 38%, rgba(18, 20, 17, .12) 74%),
-          linear-gradient(90deg, rgba(18, 20, 17, .34), transparent 72%);
+          linear-gradient(0deg, rgba(18, 20, 17, .86) 6%, rgba(18, 20, 17, .58) 38%, rgba(18, 20, 17, .1) 74%),
+          linear-gradient(90deg, rgba(18, 20, 17, .24), transparent 72%);
       }
       .hero-inner { align-items: end; padding-bottom: 3rem; }
       .hero-copy-wrap { width: 100%; }
+      .hero-trust-strip,
+      .cta-trust { grid-template-columns: 1fr; }
       .hero h1 { font-size: clamp(2.95rem, 12.5vw, 4rem); letter-spacing: -.07em; }
       .hero-lead, .hero-sub { max-width: 380px; }
       .demo-grid, .plant-grid, .software-grid, .data-grid, .return-grid, .buyer-questions-grid, .faq-grid, .cta-row { grid-template-columns: 1fr; }
@@ -2117,7 +2330,7 @@
 
   <main id="top">
     <section class="hero">
-      <img class="hero-media" src="assets/hero.png" alt="" width="1672" height="941">
+      <img class="hero-media" src="assets/hero-3.png" alt="" width="1672" height="941">
       <div class="container hero-inner">
         <div class="hero-copy-wrap reveal">
           <p class="hero-tag">Plant-floor AI grading</p>
@@ -2127,6 +2340,11 @@
           <div class="hero-actions">
             <a class="btn primary" href="#contact">Request a Plant Walk</a>
             <button class="btn ghost js-open-demo" type="button"><span class="material-symbols-rounded">play_arrow</span>Watch the System</button>
+          </div>
+          <div class="hero-trust-strip" aria-label="Plant-floor fit summary">
+            <span>Ceiling mounted</span>
+            <span>Ethernet/IP PLC handoff</span>
+            <span>Validate before buying</span>
           </div>
         </div>
       </div>
@@ -2141,7 +2359,7 @@
         </div>
         <div class="demo-grid">
           <figure class="video-card reveal" aria-label="Demo footage of the poultry grading system">
-            <video class="demo-video js-demo-inline" controls autoplay muted loop playsinline preload="auto" poster="assets/demo-poster.jpg" aria-label="Looping PucPucChicken system demo video with volume controls">
+            <video class="demo-video js-demo-inline" controls autoplay muted loop playsinline preload="metadata" poster="assets/demo-poster.jpg" aria-label="Looping PucPucChicken system demo video with volume controls">
               <source src="demo/PupPupChicken.mp4" type="video/mp4">
             </video>
             <figcaption class="video-overlay">
@@ -2239,7 +2457,7 @@
           <p>The on-board grading system scores each bird, verifies the hardware before every shift, and turns production into live quality data.</p>
         </div>
         <figure class="software-stage reveal" aria-label="PucPucChicken software demo video">
-          <video class="software-video" controls autoplay muted loop playsinline preload="auto" poster="assets/software-demo-poster.jpg" aria-label="32-second PucPucChicken software demo showing operations overview, live grading, self-test, reports, analytics, and system settings">
+          <video class="software-video" controls autoplay muted loop playsinline preload="metadata" poster="assets/software-demo-poster.jpg" aria-label="32-second PucPucChicken software demo showing operations overview, live grading, self-test, reports, analytics, and system settings">
             <source src="demo/pucpucchicken-software-demo-hq.mp4" type="video/mp4">
             Your browser does not support the software demo video.
           </video>
@@ -2311,7 +2529,6 @@
           <div class="metric wide"><strong data-count="4671" data-grouped="true">4,671</strong><span>Birds processed</span></div>
           <div class="metric wide"><strong data-count="6" data-suffix="/6">6/6</strong><span>Cameras online</span></div>
         </div>
-        <blockquote class="data-quote reveal">â€œGrade A is 19.7%, below the configured target. Review todayâ€™s top defects.â€<small>Generated automatically after each production run.</small></blockquote>
           <div class="run-insight-grid">
             <blockquote class="data-quote">"Grade A is 19.7%, below the configured target. Review today's top defects."<small>Generated automatically after each production run.</small></blockquote>
           <div class="defect-list" aria-label="Top defect drivers">
@@ -2566,6 +2783,11 @@
             <p class="section-label">Start validation</p>
             <h2 class="section-title serif">Prove it on your birds.</h2>
             <p>Share the line, throughput, and plant context. Albert at Singh Sift will help you choose the cleanest validation path: sample grading, a visit, or an on-site demonstration.</p>
+            <div class="cta-trust" aria-label="Request reassurance">
+              <span>No mailing list</span>
+              <span>Scope first</span>
+              <span>Validation led</span>
+            </div>
             <div class="cta-steps" aria-label="What happens next">
               <div class="cta-step">
                 <span>01</span>
@@ -2592,7 +2814,7 @@
             <a class="email-link" href="mailto:Albert@singautomations.com">Prefer email? Albert@singautomations.com</a>
           </div>
         </div>
-        <form class="contact-form reveal" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <form class="contact-form reveal" action="mailto:Albert@singautomations.com" method="POST" enctype="text/plain" novalidate>
           <div class="form-heading">
             <strong>Plant walk request</strong>
             <span>Enough detail to start the first scope conversation.</span>
@@ -2601,7 +2823,7 @@
             <input name="name" autocomplete="name" placeholder="Your name" required>
           </label>
           <label class="contact-field">Company
-            <input name="company" autocomplete="organization" placeholder="Your company">
+            <input name="company" autocomplete="organization" placeholder="Your company" required>
           </label>
           <label class="contact-field">Work email
             <input name="email" type="email" autocomplete="email" placeholder="name@company.com" required>
@@ -2657,6 +2879,7 @@
   <script>
     const menuButton = document.querySelector(".menu-toggle");
     const nav = document.querySelector(".nav-links");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     menuButton.addEventListener("click", () => {
       const isOpen = nav.classList.toggle("open");
@@ -2686,6 +2909,7 @@
     };
     const ambientVideos = [...document.querySelectorAll(".js-demo-inline, .software-video")];
     const playAmbientVideos = () => {
+      if (reduceMotion) return;
       ambientVideos.forEach((video) => {
         video.muted = true;
         video.defaultMuted = true;
@@ -2759,10 +2983,11 @@
       }
 
       const endpoint = form.getAttribute("action") || "";
-      if (endpoint.includes("YOUR_FORM_ID")) {
+      if (endpoint.toLowerCase().startsWith("mailto:")) {
         event.preventDefault();
         const data = new FormData(form);
         const subject = "New Plant Walk request: PucPucChicken";
+        const mailTo = endpoint.replace(/^mailto:/i, "").split("?")[0] || "Albert@singautomations.com";
         const body = [
           `Name: ${data.get("name") || ""}`,
           `Company: ${data.get("company") || ""}`,
@@ -2772,7 +2997,7 @@
           "Please follow up about a PucPucChicken plant walk."
         ].join("\n");
         status.textContent = "Opening your email app with the request details. Send the draft to complete your request.";
-        window.location.href = `mailto:Albert@singautomations.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = `mailto:${mailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         return;
       }
 
@@ -2791,7 +3016,7 @@
 
         if (!response.ok) {
           const payload = await response.json().catch(() => ({}));
-          const message = payload.errors?.map((error) => error.message).join(" ") || "Formspree could not send the request.";
+          const message = payload.errors?.map((error) => error.message).join(" ") || "The form service could not send the request.";
           throw new Error(message);
         }
 
@@ -2807,7 +3032,6 @@
       }
     });
 
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealItems = [...document.querySelectorAll(".reveal:not(.hero-copy-wrap)")];
     const staggerGroups = [".feature-grid", ".software-cards", ".validation-paths", ".buyer-answer-list"];
 
@@ -2872,24 +3096,6 @@
         });
       }, { threshold: .65 });
       countElements.forEach((element) => countObserver.observe(element));
-    }
-
-    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-    if (finePointer && !reduceMotion) {
-      document.querySelectorAll(".feature-card").forEach((card) => {
-        card.addEventListener("pointermove", (event) => {
-          const rect = card.getBoundingClientRect();
-          const x = (event.clientX - rect.left) / rect.width - .5;
-          const y = (event.clientY - rect.top) / rect.height - .5;
-          card.style.setProperty("--tilt-x", `${y * -3.2}deg`);
-          card.style.setProperty("--tilt-y", `${x * 4.2}deg`);
-        });
-        card.addEventListener("pointerleave", () => {
-          card.style.setProperty("--tilt-x", "0deg");
-          card.style.setProperty("--tilt-y", "0deg");
-        });
-      });
     }
 
     const navLinks = [...nav.querySelectorAll('a[href^="#"]')];
